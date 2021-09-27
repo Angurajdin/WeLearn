@@ -10,7 +10,8 @@
           style="max-width: 100rem"
         >
           <q-tabs v-model="tab" class="text-white">
-            <q-btn flat to="/" class="logo" label="We learn" />
+            <q-btn flat to="/Welearn" class="logo" label="We learn" />
+            <q-route-tab to="/Welearn" label="Home" />
             <q-route-tab to="/Explore" label="Explore" />
             <q-route-tab to="/Seminar" label="Seminar" />
             <q-route-tab to="/Discussion" label="Discussion" />
@@ -19,7 +20,7 @@
               v-model="search"
               class="search"
               type="text"
-              placeholder="         type here"
+              placeholder="       search course"
             />
             <q-btn
               type="submit"
@@ -63,30 +64,13 @@
             </div>
           </q-tabs>
         </div>
+        <br/>
       </div>
-
-      <!-- actual content -->
-      <p class="about">
-        WE LEARN is the top emerging platform <br />to provide learning
-        resources for the user with<br />
-        most relevant and latest content
-      </p>
-      <p class="note">
-        Be a user of our website to access all our resources free
-      </p>
-      <div class="register">
-        <input
-          v-model="search"
-          class="search"
-          type="text"
-          style="width: 20rem"
-          placeholder="       Enter your email"
-        />
-        <q-btn type="submit" no-caps flat class="get" label="Start learning" />
+<router-view/>
       </div>
-      <img src="../assets/book.png" />
-    </div>
-  </div>
+      <br/>
+      </div>
+      
 </template>
 
 <script>
@@ -113,7 +97,6 @@ export default {
   box-shadow: 0 0 3rem 0 rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.15);
-
   backdrop-filter: blur(15px);
 }
 .logo {
@@ -138,7 +121,7 @@ input:focus {
 .searchbutton {
   height: 30px;
   position: fixed;
-  right: 410px;
+  right: 390px;
   background-color: #e71f63;
   border: none;
   border-radius: 0px 7px 7px 0px;
@@ -149,43 +132,9 @@ img {
   position: fixed;
   top: 194px;
   right: 70px;
-}
-.about {
-  position: fixed;
-  top: 230px;
-  left: 100px;
-  text-align: left;
-  font: normal normal 450 28px/40px Segoe UI;
-  letter-spacing: 0.78px;
-  color: #ffffff;
-}
+} 
 ::placeholder {
   color: white;
   opacity: 60%;
-}
-.register {
-  position: fixed;
-  left: -13rem;
-  top: 30rem;
-  
-}
-.note {
-  position: fixed;
-  top: 445px;
-  left: 95px;
-  width: 427px;
-  height: 21px;
-  text-align: left;
-  font: normal normal 15px/18px Segoe UI;
-  letter-spacing: 0.48px;
-  color: #ffffff;
-}
-.get {
-  position: fixed;
-  left: 390px;
-  border-radius: 0px 10px 10px 0px;
-  color: white;
-  background-color: #e71f63;
-   
 }
 </style>
