@@ -14,10 +14,15 @@
           type="text"
           style="width: 20rem"
           placeholder="       Enter your email"
+          required
         />
         <q-btn type="submit" no-caps flat class="get" label="Start learning" />
       </div>
-      <img src="../assets/book.png" /> 
+      <img class="book" src="../assets/book.png" /> 
+      <div class="course">
+
+        
+      </div>
 </template>
 
 <script>
@@ -51,7 +56,7 @@ input:focus {
   padding-right: 20px;
   padding-left: 20px;
 }
-img {
+.book{
   position: fixed;
   top: 194px;
   right: 70px;

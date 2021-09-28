@@ -10,8 +10,8 @@
           style="max-width: 100rem"
         >
           <q-tabs v-model="tab" class="text-white">
-            <q-btn flat to="/Welearn" class="logo" label="We learn" />
-            <q-route-tab to="/Welearn" label="Home" />
+            <q-btn flat to="/" class="logo" label="We learn" />
+            <q-route-tab to="/" label="Home" />
             <q-route-tab to="/Explore" label="Explore" />
             <q-route-tab to="/Seminar" label="Seminar" />
             <q-route-tab to="/Discussion" label="Discussion" />
@@ -128,11 +128,7 @@ input:focus {
   padding-right: 20px;
   padding-left: 20px;
 }
-img {
-  position: fixed;
-  top: 194px;
-  right: 70px;
-} 
+ 
 ::placeholder {
   color: white;
   opacity: 60%;
