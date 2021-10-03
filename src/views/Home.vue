@@ -13,7 +13,7 @@
             <q-btn flat to="/" class="logo" label="We learn" />
             <q-route-tab to="/" label="Home" />
             <q-route-tab to="/Explore" label="Explore" />
-            <q-route-tab to="/Seminar" label="Seminar" />
+            <q-route-tab to="/Webinar" label="Webinar" />
             <q-route-tab to="/Discussion" label="Discussion" />
 
             <input

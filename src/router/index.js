@@ -22,9 +22,9 @@ const routes = [
       },
 
       {
-        path: '/Seminar',
-        name: 'Seminar',
-        component: () => import('../views/Seminar.vue')
+        path: '/Webinar',
+        name: 'Webinar',
+        component: () => import('../views/Webinar.vue')
       },
 
       {
