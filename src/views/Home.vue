@@ -93,7 +93,7 @@ export default {
 .container {
   max-width: 100rem;
   margin: 10px 25px;
-  height: 50rem;
+  min-height: 50rem;
   box-shadow: 0 0 3rem 0 rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.15);
