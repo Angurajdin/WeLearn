@@ -82,14 +82,14 @@ export default {
 setup(){
  
 let form = ref(false)
-let address = ref('')
  
-return { form,address}
+ 
+return { form}
 }
 }
 </script>
 
-<style>
+<style scoped>
 h4 {
   color: white;
   margin-left: 10px;
