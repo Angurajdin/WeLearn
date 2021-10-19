@@ -46,13 +46,12 @@
     </q-dialog>
   </div>
 
-
   </div>
   <br>
   <br>
   <br>
   <center>
- <q-card class="my-card post" style="max-width: 1300px;">
+ <q-card class="my-card post"  style="max-width: 1300px;">
       <q-card-section>
         <div class="left">
           <p style="font-size : 36px;text-transform: uppercase;font-weight:500;margin:10px 20px ;">
