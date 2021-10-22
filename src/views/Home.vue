@@ -29,7 +29,7 @@
               class="searchbutton"
               label="Search"
             />
-            <q-btn flat style="color: #ffffff" label="Login" />
+            <q-btn flat style="color: #ffffff" @click="icon = true" label="Login" />
             <q-btn flat style="color: #ffffff" label="Sign up" />
 
             <!-- Dropdown -->
@@ -63,6 +63,24 @@
               </q-btn-dropdown>
             </div>
           </q-tabs>
+
+          <!-- **** LOGIN **** -->
+            <div class="q-pa-md q-gutter-sm">
+            <q-dialog v-model="icon">
+      <q-card>
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">Close icon</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+
+        <q-card-section>
+           h
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+            </div>
+
         </div>
         <br/>
       </div>
@@ -75,10 +93,15 @@
 
 <script>
 // @ is an alias to /src
-
+import {ref} from 'vue'
 export default {
   name: "Home",
-  components: {},
+  setup(){
+
+  let icon =  ref('false')
+
+  return { icon}
+  }
 };
 </script>
 

@@ -14,7 +14,7 @@
       <q-card-section class="q-pt-none">
         <center>
           <q-btn
-            class="glossy"
+            class="rounded"
             rounded
             color="primary"
             label="View discussion"
@@ -34,7 +34,7 @@
       <q-card-section class="q-pt-none">
         <center>
           <q-btn
-            class="glossy"
+            class="rounded"
             rounded
             color="primary"
             label="View discussion"

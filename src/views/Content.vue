@@ -16,7 +16,8 @@
         color="white"
         label="back to course"
       />
-      <q-btn outline  rounded color="white" label="Save content" />
+      
+      <q-btn outline   rounded color="white" label="Save content" />
       <q-toolbar>
         <q-toolbar-title> Course title </q-toolbar-title>
       </q-toolbar>
