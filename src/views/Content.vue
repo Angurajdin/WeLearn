@@ -8,14 +8,14 @@
       height-hint="98"
     >
       <!-- buttons -->
-      <q-btn
+      <!-- <q-btn
         style="margin: 20px; text-align: center"
         outline
         rounded
         align="right"
         color="white"
         label="back to course"
-      />
+      /> -->
       
       <q-btn outline   rounded color="white" label="Save content" />
       <q-toolbar>

@@ -15,7 +15,7 @@
             <q-route-tab to="/Explore" label="Explore" />
             <q-route-tab to="/Webinar" label="Webinar" />
             <q-route-tab to="/Discussion" label="Discussion" />
-
+          <div class="searchpair">
             <input
               v-model="search"
               class="search"
@@ -29,6 +29,7 @@
               class="searchbutton"
               label="Search"
             />
+            </div>
             <q-btn flat style="color: #ffffff" @click="icon = true" label="Login" />
             <q-btn flat style="color: #ffffff" label="Sign up" />
 
@@ -122,6 +123,9 @@ export default {
   background-color: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(15px);
 }
+.searchpair{
+  display: flex;
+}
 .logo {
   font: 25px Qualy;
 
@@ -131,25 +135,25 @@ export default {
   background-color: rgba(255, 255, 255, 0.15);
   box-shadow: 1px 1px 3px #00000029;
   border: none;
-  border-radius: 10px;
+  border-radius: 7px 0px 0px 7px;
   backdrop-filter: blur(2px);
   color: white;
   margin-left: 300px;
   height: 36px;
-  margin-right: 100px;
+   justify-content:flex-start; 
 }
 input:focus {
   outline: none;
 }
 .searchbutton {
   height: 30px;
-  position: fixed;
-  right: 390px;
+   
+   
   background-color: #e71f63;
   border: none;
   border-radius: 0px 7px 7px 0px;
-  padding-right: 20px;
-  padding-left: 20px;
+  
+  justify-content:flex-end; 
 }
  
 ::placeholder {

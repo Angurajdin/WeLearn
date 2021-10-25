@@ -31,8 +31,9 @@
                </p>
           </div>
          <div class="answer">
-          <q-input  style="width:40%;position:relative;bottom: -70px; " rounded outlined v-model="text" label="Answer" />
-        <q-btn style="padding:10px 30px;position:fixed;left:35rem;top:16.5rem" push color="primary" label=" Submit " />
+          <q-input    style="max-width:50%;margin: 0px 0px 30px;" rounded outlined v-model="text" label="Answer" />
+        <q-btn style="padding:10px 30px; position:relative;" push color="primary" label=" Submit " />
+        <p>No of answers</p>
 </div>
   
       </q-card-section>
@@ -59,7 +60,8 @@ h5 {
    
   text-align: center;
   right: 540px;
-}.doubt{
+}
+.doubt{
     border-radius: 17px;
 width: 157px;
 height: 49px;

@@ -94,6 +94,7 @@ h4 {
   color: white;
   margin-left: 10px;
   position: fixed;
+  top:110px;
   right: 540px;
 }
 .getstarted{
@@ -109,7 +110,7 @@ top:145px;
 
 }
 .post{
-  
+  display: flex;
 height: 349px;
 margin : 50px ;
 background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -126,15 +127,16 @@ backdrop-filter: blur(30px);
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   width: 40%;
-  position: fixed;
- left: 50rem;
+ justify-content:flex-end; 
+  flex: 1 0 auto;
 
 }
 
 .left{
   text-align: left;
-   max-width: 56%;
+   width: 60%;
    float: left;
+   flex: 1 1 auto;
 }
 .btn-part{
   background: transparent linear-gradient(90deg, #2bfff4 0%, #009df8 100%) 0% 0% no-repeat padding-box;
