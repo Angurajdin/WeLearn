@@ -30,17 +30,17 @@
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime iusto rem voluptate amet? Quos nulla ex itaque nostrum eum maiores maxime modi ut soluta id atque, rem neque magnam delectus omnis ullam? Deleniti cum molestias voluptas nihil aperiam ex ipsam, natus rem quisquam ullam commodi rerum iste incidunt consequuntur exercitationem aut fugiat vitae tenetur, laborum iure qui, labore nam. Necessitatibus nobis error, beatae assumenda, sint ab incidunt rerum expedita quam, aut cupiditate accusamus? Exercitationem praesentium quo at omnis laborum eum inventore dolor sapiente atque laudantium ad minima deserunt modi in, iusto asperiores sunt autem ratione corporis consequatur illum. Voluptatum, blanditiis?
                </p>
           </div>
-
+<div class="contain">
          <div class="answer">
-          <q-input    style="max-width:50%;margin: 0px 0px 30px;" rounded outlined v-model="text" label="Answer" />
+          <q-input    style="max-width:90%;margin: 0px 0px 30px;" rounded outlined v-model="text" label="Answer" />
           </div>
           <div class="enter">
-        <q-btn style="padding:10px 30px; position:relative;" push color="primary" label=" Submit " />
+        <q-btn style="padding:15px 30px;  " push color="primary" label=" Submit " />
         </div>
         <div class="totalans">
-        <p>No of answers</p>
+        <p style="font-weight:600;font-size:18px;text-align:center;margin:3px">No of answers</p>
         </div>
- 
+ </div>
   
       </q-card-section>
     </q-card>
@@ -80,17 +80,20 @@ top:145px;
 
 }
 .question{
-    min-height: 349px;
+    max-height: 600px;
 margin : 50px ;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 border-radius: 44px;
 opacity: 0.74;
 backdrop-filter: blur(30px);
 -webkit-backdrop-filter: blur(30px);
-display: flex;
+
+}
+.enter{
+  flex-direction: row;flex-grow: 3;
 }
 .totalans{
-  justify-content:flex-end;   flex: 1 0 auto;
+  flex-direction: row;flex-grow: 3;
 
 }
 .questionarea{
@@ -99,6 +102,13 @@ border-radius: 44px;
 opacity: 0.84;
 backdrop-filter: blur(30px);
 -webkit-backdrop-filter: blur(30px);  
+}
+.answer{
+   flex-direction: row;flex-grow: 3;
+}
+.contain{
+  display: flex;
+  margin-top:40px;
 }
 </style>
 

@@ -30,8 +30,8 @@
               label="Search"
             />
             </div>
-            <q-btn flat style="color: #ffffff" @click="icon = true" label="Login" />
-            <q-btn flat style="color: #ffffff" label="Sign up" />
+            <q-btn flat style="color: #ffffff" @click="login = true" label="Login" />
+            <q-btn flat style="color: #ffffff"  @click="signup = true" label="Sign up" />
 
             <!-- Dropdown -->
             <div class="q-pa-md">
@@ -67,20 +67,106 @@
 
           <!-- **** LOGIN **** -->
             <div class="q-pa-md q-gutter-sm">
-            <q-dialog v-model="icon">
-      <q-card>
+            <q-dialog v-model="login">
+      <q-card class="contain">
         <q-card-section class="row items-center q-pb-none">
-          <div class="text-h6">Close icon</div>
+          <div class="text-h6">Login Here</div>
           <q-space />
           <q-btn icon="close" flat round dense v-close-popup />
         </q-card-section>
+<!-- content
+ -->        <q-card-section>
+           <q-form
+      @submit="onSubmit"
+      @reset="onReset"
+      class="q-gutter-md"
+    >
+        <q-input filled v-model="email" label="Email" type="email" suffix="@gmail.com">
+        <template v-slot:before>
+          <q-icon name="mail" />
+        </template>
+      </q-input>
 
-        <q-card-section>
-           h
+     <q-input label="Password" v-model="password" filled :type="isPwd ? 'password' : 'text'" >
+        <template v-slot:before>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          />
+        </template>
+      </q-input>
+
+      <div>
+        <center>
+        <q-btn label="Login" type="submit" color="primary"/>
+        </center>
+         <a style="cursor:pointer" @click="login = false,signup = true">Don't have a account ? Signup</a>
+      </div>
+    </q-form>
         </q-card-section>
       </q-card>
     </q-dialog>
             </div>
+            <!-- Login end -->
+
+
+            <!-- Signup starts -->
+             <div class="q-pa-md q-gutter-sm">
+            <q-dialog v-model="signup">
+      <q-card class="signupcontain">
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">Create Your Account</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+<!-- content
+ -->        <q-card-section>
+           <q-form
+      @submit="onSubmit"
+      @reset="onReset"
+      class="q-gutter-md"
+    >
+   
+<q-input filled v-model="Username" type="text"   >
+        <template v-slot:before>
+          <q-icon name="person" />
+        </template>
+      </q-input>
+
+        <q-input filled v-model="email" type="email" suffix="@gmail.com">
+        <template v-slot:before>
+          <q-icon name="mail" />
+        </template>
+      </q-input>
+      <q-input filled v-model="mobile" type="number"   >
+        <template v-slot:before>
+          <q-icon name="phone" />
+        </template>
+      </q-input>
+
+     <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" >
+        <template v-slot:before>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          />
+        </template>
+      </q-input>
+
+      <div>
+        <center>
+        <q-btn label="Register" type="submit" color="primary"/>
+        </center>
+         <a style="cursor:pointer" @click="login = true,signup = false" >Already have a account ?</a>
+      </div>
+    </q-form>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+            </div>
+<!-- Signup ends -->
 
         </div>
         <br/>
@@ -93,15 +179,18 @@
 </template>
 
 <script>
+
 // @ is an alias to /src
 import {ref} from 'vue'
 export default {
   name: "Home",
   setup(){
 
-  let icon =  ref('false')
+  let login =  ref('false')
+  let signup =  ref('false')
+  let isPwd = ref('true')
 
-  return { icon}
+  return { login,isPwd,signup}
   }
 };
 </script>
@@ -159,6 +248,29 @@ input:focus {
 ::placeholder {
   color: white;
   opacity: 60%;
+}
+
+
+/* login css */
+.contain{
+  height: 349px;
+  width: 543px;
+margin : 50px ;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+border-radius: 14px;
+opacity: 0.90;
+backdrop-filter: blur(30px);
+-webkit-backdrop-filter: blur(30px);
+}
+.signupcontain{
+  height: 455px;
+  width: 1043px;
+margin : 50px ;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+border-radius: 14px;
+opacity: 0.90;
+backdrop-filter: blur(30px);
+-webkit-backdrop-filter: blur(30px);
 }
 </style>
 
