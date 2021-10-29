@@ -2,7 +2,7 @@
   <div>
   <h4>You can conduct your own Webinar, here</h4>
   
-  <div class="q-pa-md q-gutter-sm">
+  <div class="q-pa-md q-gutter-sm" >
      
     <q-btn class="getstarted" label="Get started" color="primary" @click="form = true" />
 
@@ -10,7 +10,7 @@
  
     <q-dialog v-model="form" persistent>
       
-      <q-card style="min-width: 450px">
+      <q-card style="min-width: 450px" class="webinardetail">
         <p style="color:black;font-weight:660;margin:20px;text-align:center">Fill your Webinar Details</p>
       
         <q-card-section>
@@ -164,6 +164,13 @@ margin: 20px;
     width: 178px;
 height: 112px;
  
+}
+.webinardetail{
+ background: #FFFFFF 0% 0% no-repeat padding-box;
+border-radius: 44px;
+opacity: 0.84;
+backdrop-filter: blur(30px);
+-webkit-backdrop-filter: blur(30px);  
 }
  
 </style> */ */

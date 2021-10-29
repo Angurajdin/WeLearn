@@ -7,19 +7,11 @@
       style="height: 72px"
       height-hint="98"
     >
-      <!-- buttons -->
-      <!-- <q-btn
-        style="margin: 20px; text-align: center"
-        outline
-        rounded
-        align="right"
-        color="white"
-        label="back to course"
-      /> -->
+    
       
-      <q-btn outline   rounded color="white" label="Save content" />
+      <q-btn outline  style="position:fixed;right:30px;margin:30px;" rounded color="white" label="Save content" />
       <q-toolbar>
-        <q-toolbar-title> Course title </q-toolbar-title>
+        <q-toolbar-title style="text-align:center;"> Course title </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
@@ -38,25 +30,7 @@
 
       <div  v-if="viewvideo" class="videolist">
         <h6 style="text-align:left; margin:25px 20px;font-weight:600;letter-spacing: 0.52px;"><i class="fas fa-list"></i>   Playlist title</h6>
-        <div class="q-pa-md" style="max-width: 400px">
-          <q-list bordered padding style="margin-top:-30px;" class="rounded-borders text-primary">
-            <q-item
-              clickable
-              v-ripple
-              :active="link === 'inbox'"
-              @click="link = 'inbox'"
-              active-class="my-menu-link"
-              v-for="i in 10"
-              :key="i"
-            >
-              <q-item-section avatar>
-                <q-icon name="play_circle_filled" />
-              </q-item-section>
-
-              <q-item-section>Inbox</q-item-section>
-            </q-item>
-          </q-list>
-        </div>
+         
       </div>
       <div v-else class="booklist">hence</div>
     </q-drawer>
