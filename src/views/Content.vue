@@ -30,7 +30,48 @@
 
       <div  v-if="viewvideo" class="videolist">
         <h6 style="text-align:left; margin:25px 20px;font-weight:600;letter-spacing: 0.52px;"><i class="fas fa-list"></i>   Playlist title</h6>
-         
+          <div class="q-pa-md" style="max-width: 350px">
+    <q-list bordered class="rounded-borders">
+      <q-expansion-item>
+        <template v-slot:header>
+          <q-item-section avatar>
+            <q-avatar icon="smart_display" color="primary" text-color="white" />
+          </q-item-section>
+
+          <q-item-section>
+             title
+          </q-item-section>
+
+          <q-item-section side>
+             
+          </q-item-section>
+        </template>
+
+        <q-card>
+          <q-card-section>
+             <q-list bordered padding class="rounded-borders text-primary">
+      <q-item
+        clickable
+        v-ripple
+        :active="link === 'video'"
+        @click="link = 'video'"
+        active-class="my-menu-link"
+      >
+        <q-item-section avatar>
+          <q-icon name="play_arrow" />
+        </q-item-section>
+
+        <q-item-section>Video 1</q-item-section>
+      </q-item>
+             </q-list>
+          </q-card-section>
+        </q-card>
+      </q-expansion-item>
+
+      <q-separator />
+ 
+    </q-list>
+  </div>
       </div>
       <div v-else class="booklist">hence</div>
     </q-drawer>
@@ -47,11 +88,12 @@ export default {
   setup() {
     let leftDrawerOpen = ref("True");
     let viewvideo = ref('true');
+    let link = ref('video')
     const book = () => {
       viewvideo.value = false;
-      console.log("fff")
+       
     };
-    return { leftDrawerOpen, viewvideo, book };
+    return { leftDrawerOpen, viewvideo, book,link };
   },
 };
 </script>
