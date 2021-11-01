@@ -25,189 +25,194 @@
                 label="Search"
               />
             </div>
-            <q-btn
-              flat
-              style="color: #ffffff"
-              @click="login = true"
-              label="Login"
-            />
-            <q-btn
+            <div v-if="currentUser==null">
+              <q-btn
+                flat
+                style="color: #ffffff"
+                @click="login = true"
+                label="Login"
+              />
+              <q-btn
               flat
               style="color: #ffffff"
               @click="signup = true"
               label="Sign up"
             />
+            </div>
 
+            <div v-else>
             <!-- Dropdown -->
-            <div class="q-pa-md">
-              <q-btn-dropdown
-                color="pink"
-                label="Account"
-                dropdown-icon="change_history"
-              >
-                <q-list>
-                  <q-item clickable v-close-popup @click="onItemClick">
-                    <q-item-section>
-                      <q-item-label>Saved</q-item-label>
-                    </q-item-section>
-                  </q-item>
+              <div class="q-pa-md">
+                <q-btn-dropdown
+                  color="pink"
+                  label="Account"
+                  dropdown-icon="change_history"
+                >
+                  <q-list>
+                    <q-item clickable v-close-popup @click="onItemClick">
+                      <q-item-section>
+                        <q-item-label>Saved</q-item-label>
+                      </q-item-section>
+                    </q-item>
 
-                  <q-item clickable v-close-popup @click="onItemClick">
-                    <q-item-section>
-                      <q-item-label>Setting</q-item-label>
-                    </q-item-section>
-                  </q-item>
+                    <q-item clickable v-close-popup @click="onItemClick">
+                      <q-item-section>
+                        <q-item-label>Setting</q-item-label>
+                      </q-item-section>
+                    </q-item>
 
-                  <q-item clickable v-close-popup @click="onItemClick">
-                    <q-item-section>
-                      <q-item-label style="color: red; font-weight: 600"
-                        >Logout</q-item-label
-                      >
-                    </q-item-section>
-                  </q-item>
-                </q-list>
-              </q-btn-dropdown>
+                    <q-item clickable v-close-popup @click="onItemClick">
+                      <q-item-section>
+                        <q-item-label style="color: red; font-weight: 600" @click="logout">
+                          Logout
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-btn-dropdown>
+              </div>
             </div>
           </q-tabs>
 
-          <!-- **** LOGIN **** -->
-          <div class="q-pa-md q-gutter-sm">
-            <q-dialog v-model="login">
-              <q-card class="contain">
-                <q-card-section class="row items-center q-pb-none">
-                  <div class="text-h6">Login Here</div>
-                  <q-space />
-                  <q-btn icon="close" flat round dense v-close-popup />
-                </q-card-section>
-                <!-- content
- -->
-                <q-card-section>
-                  <q-form
-                    @submit="onLogin"
-                    @reset=""
-                    class="q-gutter-md"
-                  >
-                    <q-input
-                      filled
-                      v-model="loginEmail"
-                      label="Email"
-                      type="email"
-                    >
-                      <template v-slot:before>
-                        <q-icon name="mail" />
-                      </template>
-                    </q-input>
 
-                    <q-input
-                      label="Password"
-                      v-model="loginPassword"
-                      filled
-                      :type="isPwd ? 'password' : 'text'"
+            <!-- **** LOGIN **** -->
+            <div class="q-pa-md q-gutter-sm">
+              <q-dialog v-model="login">
+                <q-card class="contain">
+                  <q-card-section class="row items-center q-pb-none">
+                    <div class="text-h6">Login Here</div>
+                    <q-space />
+                    <q-btn icon="close" flat round dense v-close-popup />
+                  </q-card-section>
+                  <!-- content
+   -->
+                  <q-card-section>
+                    <q-form
+                      @submit="onLogin"
+                      @reset=""
+                      class="q-gutter-md"
                     >
-                      <template v-slot:before>
-                        <q-icon
-                          :name="isPwd ? 'visibility_off' : 'visibility'"
-                          class="cursor-pointer"
-                          @click="isPwd = !isPwd"
-                        />
-                      </template>
-                    </q-input>
+                      <q-input
+                        filled
+                        v-model="loginEmail"
+                        label="Email"
+                        type="email"
+                      >
+                        <template v-slot:before>
+                          <q-icon name="mail" />
+                        </template>
+                      </q-input>
 
-                      <div style="text-align: center;">
-                        <q-btn label="Login" type="submit" color="primary" />
-                        <br/><br/>
-                        <a
-                            style="cursor: pointer"
-                            @click="(login = false), (signup = true), (error = null)"
-                        >Don't have a account ? Signup</a>
-                        <div v-if="error" class="text-red">
+                      <q-input
+                        label="Password"
+                        v-model="loginPassword"
+                        filled
+                        :type="isPwd ? 'password' : 'text'"
+                      >
+                        <template v-slot:before>
+                          <q-icon
+                            :name="isPwd ? 'visibility_off' : 'visibility'"
+                            class="cursor-pointer"
+                            @click="isPwd = !isPwd"
+                          />
+                        </template>
+                      </q-input>
+
+                        <div style="text-align: center;">
+                          <q-btn label="Login" type="submit" color="primary" />
+                          <br/><br/>
+                          <a
+                              style="cursor: pointer"
+                              @click="(login = false), (signup = true), (error = null)"
+                          >Don't have a account ? Signup</a>
+                          <div v-if="error" class="text-red">
+                            <br/>
+                            <strong> {{error}} </strong>
+                          </div>
+                        </div>
+                    </q-form>
+                  </q-card-section>
+                </q-card>
+              </q-dialog>
+            </div>
+            <!-- Login end -->
+
+            <!-- Signup starts -->
+            <div class="q-pa-md q-gutter-sm">
+              <q-dialog v-model="signup">
+                <q-card class="signupcontain">
+                  <q-card-section class="row items-center q-pb-none">
+                    <div class="text-h6">Create Your Account</div>
+                    <q-space />
+                    <q-btn icon="close" flat round dense v-close-popup />
+                  </q-card-section>
+                  <!-- content
+   -->
+                  <q-card-section>
+                    <q-form
+                      @submit="onSignup"
+                      @reset=""
+                      class="q-gutter-md"
+                    >
+                      <q-input dense="dense" filled v-model="signupUsername" type="text">
+                        <template v-slot:before>
+                          <q-icon name="person" />
+                        </template>
+                      </q-input>
+
+                      <q-input
+                        filled
+                        v-model="signupEmail"
+                        type="email"
+                        dense="dense">
+                        <template v-slot:before>
+                          <q-icon name="mail" />
+                        </template>
+                      </q-input>
+                      <q-input dense="dense" filled v-model="signupMobile" type="number">
+                        <template v-slot:before>
+                          <q-icon name="phone" />
+                        </template>
+                      </q-input>
+
+                      <q-input
+                        dense="dense"
+                        v-model="signupPassword"
+                        filled
+                        :type="isPwd ? 'password' : 'text'"
+                      >
+                        <template v-slot:before>
+                          <q-icon
+                            :name="isPwd ? 'visibility_off' : 'visibility'"
+                            class="cursor-pointer"
+                            @click="isPwd = !isPwd"
+                          />
+                        </template>
+                      </q-input>
+
+                      <div>
+                        <div style="text-align: center;">
                           <br/>
-                          <strong> {{error}} </strong>
+                          <q-btn label="Register" type="submit" color="primary" />
+                          <br/><br/>
+                          <a
+                              style="cursor: pointer"
+                              @click="(login = true), (signup = false), (error = null)">
+                            Already have a account ? Login </a>
+                          <div v-if="error" class="text-red">
+                            <br/>
+                            <strong> {{error}} </strong>
+                          </div>
                         </div>
                       </div>
-                  </q-form>
-                </q-card-section>
-              </q-card>
-            </q-dialog>
-          </div>
-          <!-- Login end -->
+                    </q-form>
+                  </q-card-section>
+                </q-card>
+              </q-dialog>
+            </div>
+            <!-- Signup ends -->
 
-          <!-- Signup starts -->
-          <div class="q-pa-md q-gutter-sm">
-            <q-dialog v-model="signup">
-              <q-card class="signupcontain">
-                <q-card-section class="row items-center q-pb-none">
-                  <div class="text-h6">Create Your Account</div>
-                  <q-space />
-                  <q-btn icon="close" flat round dense v-close-popup />
-                </q-card-section>
-                <!-- content
- -->
-                <q-card-section>
-                  <q-form
-                    @submit="onSignup"
-                    @reset=""
-                    class="q-gutter-md"
-                  >
-                    <q-input dense="dense" filled v-model="signupUsername" type="text">
-                      <template v-slot:before>
-                        <q-icon name="person" />
-                      </template>
-                    </q-input>
-
-                    <q-input
-                      filled
-                      v-model="signupEmail"
-                      type="email"
-                      dense="dense">
-                      <template v-slot:before>
-                        <q-icon name="mail" />
-                      </template>
-                    </q-input>
-                    <q-input dense="dense" filled v-model="signupMobile" type="number">
-                      <template v-slot:before>
-                        <q-icon name="phone" />
-                      </template>
-                    </q-input>
-
-                    <q-input
-                      dense="dense"
-                      v-model="signupPassword"
-                      filled
-                      :type="isPwd ? 'password' : 'text'"
-                    >
-                      <template v-slot:before>
-                        <q-icon
-                          :name="isPwd ? 'visibility_off' : 'visibility'"
-                          class="cursor-pointer"
-                          @click="isPwd = !isPwd"
-                        />
-                      </template>
-                    </q-input>
-
-                    <div>
-                      <div style="text-align: center;">
-                        <br/>
-                        <q-btn label="Register" type="submit" color="primary" />
-                        <br/><br/>
-                        <a
-                            style="cursor: pointer"
-                            @click="(login = true), (signup = false), (error = null)"
-                        >Already have a account ? Login</a>
-                        <div v-if="error" class="text-red">
-                          <br/>
-                          <strong> {{error}} </strong>
-                        </div>
-                      </div>
-                    </div>
-                  </q-form>
-                </q-card-section>
-              </q-card>
-            </q-dialog>
-          </div>
-          <!-- Signup ends -->
         </div>
-        <br />
       </div>
       <router-view />
     </div>
@@ -238,20 +243,34 @@ export default defineComponent({
     let signupUsername = ref('');
     let search = ref('');
     let tab = ref('home');
+    let currentUser = ref(null);
 
     const onSignup = async() =>{
 
       if(signupPassword.value.trim()!=='' && signupUsername.value.trim()!=='' && signupEmail.value.trim()!=='' && signupMobile.value.trim()!=='' ){
         error.value = null
         isLoading.value = true
-        const res = await api.signup({
-          userName: signupUsername.value,
-          emailID: signupEmail.value,
-          password: signupPassword.value,
-          mobile: signupMobile.value
-        });
-        if(res.success)   await router.push('/Explore');
-        else    error.value = res.message;
+        if(signupUsername.value.trim().length<3){
+          error.value = "Username must be at least 3 characters"
+        }
+        else if(signupMobile.value.trim().length !== 10){
+          error.value = "Invalid Mobile No"
+        }
+        else{
+          const res = await api.signup({
+            userName: signupUsername.value,
+            emailID: signupEmail.value,
+            password: signupPassword.value,
+            mobile: signupMobile.value
+          });
+          if(res.success){
+            currentUser.value = res.currentUser
+            login.value = false;
+            signup.value = false;
+            await router.push('/Explore');
+          }
+          else    error.value = res.message;
+        }
       }
       else{
         error.value = 'All Fields are required'
@@ -270,7 +289,12 @@ export default defineComponent({
           password: loginPassword.value
         });
         console.log(res);
-        if(res.success)   await router.push('/Explore');
+        if(res.success){
+          currentUser.value = res.currentUser
+          login.value = false;
+          signup.value = false;
+          await router.push('/Explore');
+        }
         else     error.value = res.message;
         isLoading.value = false
       }
@@ -281,9 +305,11 @@ export default defineComponent({
 
     }
 
+    const logout = ()=>{
+      currentUser.value = null;
+    }
 
-
-    return { tab, search, error, onLogin,onSignup,login, isPwd, signup, signupEmail, signupPassword, loginPassword, signupUsername, loginEmail, signupMobile };
+    return { logout, currentUser, tab, search, error, onLogin,onSignup,login, isPwd, signup, signupEmail, signupPassword, loginPassword, signupUsername, loginEmail, signupMobile };
   },
 });
 </script>

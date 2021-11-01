@@ -48,32 +48,29 @@
 
   </div>
   <br>
-  <br>
-  <br>
   <div style="text-align: center;">
-    <q-card class="my-card post" style="max-width: 1300px;">
-      <q-card-section>
-        <div class="left">
-          <p style="font-size : 36px;text-transform: uppercase;font-weight:500;margin:10px 20px ;">
-            title</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam tempore nisi quas, autem reiciendis corporis
-            in iusto recusandae dolorum, accusamus ipsam. Maiores nostrum recusandae voluptatem dolores maxime fugiat
-            modi fuga!
-          </p>
-        </div>
-        <div class="right">
-
-          <p class="details"><i class="fas fa-calendar"></i><br>Time</p>
-          <p class="details"><i class="fas fa-clock"></i><br>duration</p>
-          <p class="details"><i class="fas fa-video"></i><br>platform</p>
-          <button class="details btn-part"><i class="fas fa-chevron-circle-right"></i><br>PARTICIPATE</button>
-
-        </div>
-      </q-card-section>
-    </q-card>
-
+    <div v-for="i in data" :key="i">
+      <q-card class="my-card post" >
+        <q-card-section horizontal class="row">
+          <q-card-section class="col-5">
+            <p style="font-size : 36px;text-transform: uppercase;font-weight:500;margin:10px 20px ;">
+              {{ i.title }}</p>
+            <p>
+              {{ i.description }}
+            </p>
+          </q-card-section>
+          <q-card-section class="col-4"></q-card-section>
+          <q-card-section class="right col-3" style="float: right;">
+            <p class="details"><i class="fas fa-calendar"></i><br>{{ i.time }}</p>
+            <p class="details"><i class="fas fa-clock"></i><br>{{ i.duration }}</p>
+            <p class="details"><i class="fas fa-video"></i><br>{{ i.platform }}</p>
+            <button class="details btn-part"><i class="fas fa-chevron-circle-right"></i><br>PARTICIPATE</button>
+          </q-card-section>
+        </q-card-section>
+      </q-card>
+    </div>
   </div>
+  <br>
 </template>
 
 <script>
@@ -92,7 +89,24 @@
       let platform = ref('');
       let duration = ref('');
       let link = ref('');
+      const data = ref([]);
       const router = useRoute()
+
+      const getMeetings = async ()=>{
+        try{
+          const meetings = await api.getMeeting();
+          if(meetings.success){
+            data.value = meetings.data;
+          }
+          else{
+            console.log("error in retrieving data");
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
+      getMeetings();
 
       const onSubmit = async()=>{
         console.log("dfhd");
@@ -109,7 +123,7 @@
         else    error.value = res.message;
       }
 
-      return { onSubmit, form, title, date, description, time, link, duration, platform }
+      return { data, onSubmit, form, title, date, description, time, link, duration, platform }
     }
   });
 </script>
@@ -124,7 +138,6 @@ h4 {
 }
 
 .getstarted {
-
   border-radius: 17px;
   width: 157px;
   height: 49px;
@@ -151,7 +164,7 @@ h4 {
   margin: 20px auto;
   display: grid;
   grid-template-columns: 200px 200px;
-  //grid-row: auto auto;
+  /*grid-row: auto auto;*/
   grid-row: auto;
   grid-column-gap: 20px;
   grid-row-gap: 20px;

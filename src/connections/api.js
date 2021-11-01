@@ -15,8 +15,12 @@ export default class API{
     }
 
     static async meeting(data){
-        console.log("conn");
         const res = await axios.post(url+"/meeting", data);
+        return res.data;
+    }
+
+    static async getMeeting(){
+        const res = await axios.get(url+"/meeting");
         return res.data;
     }
 
