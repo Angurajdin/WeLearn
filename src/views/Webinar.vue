@@ -50,17 +50,17 @@
   <br>
   <div style="text-align: center;">
     <div v-for="i in data" :key="i">
-      <q-card class="my-card post" >
+      <q-card class="my-card column post" >
         <q-card-section horizontal class="row">
-          <q-card-section class="col-5">
-            <p style="font-size : 36px;text-transform: uppercase;font-weight:500;margin:10px 20px ;">
+          <q-card-section class="column left">
+            <p style="font-size : 36px;text-transform: uppercase;font-weight:500;text-align:left ">
               {{ i.title }}</p>
-            <p>
+            <p style=" text-align:left ">
               {{ i.description }}
             </p>
           </q-card-section>
-          <q-card-section class="col-4"></q-card-section>
-          <q-card-section class="right col-3" style="float: right;">
+          <q-card-section ></q-card-section>
+          <q-card-section class="column right col-3"  >
             <p class="details"><i class="fas fa-calendar"></i><br>{{ i.time }}</p>
             <p class="details"><i class="fas fa-clock"></i><br>{{ i.duration }}</p>
             <p class="details"><i class="fas fa-video"></i><br>{{ i.platform }}</p>
@@ -150,17 +150,19 @@ h4 {
 }
 
 .post {
-  display: flex;
-  height: 349px;
+   
+  min-height: 349px;
   margin: 50px;
   background: #FFFFFF 0% 0% no-repeat padding-box;
   border-radius: 44px;
   opacity: 0.74;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
+  display: flex;
+  
 }
 
-.right {
+.column.right {
   margin: 20px auto;
   display: grid;
   grid-template-columns: 200px 200px;
@@ -168,17 +170,16 @@ h4 {
   grid-row: auto;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
-  width: 40%;
-  justify-content: flex-end;
-  flex: 1 0 auto;
+  width: 35%;
+  
+  
+  
 
 }
 
-.left {
-  text-align: left;
-  width: 60%;
-  float: left;
-  flex: 1 1 auto;
+.column.left {
+ width: 65%;
+ 
 }
 
 .btn-part {
@@ -213,10 +214,11 @@ h4 {
 
 .webinardetail {
   background: #FFFFFF 0% 0% no-repeat padding-box;
-  border-radius: 44px;
-  opacity: 0.84;
+  border-radius: 24px;
+  opacity: 0.90;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
+  width: 600px;
 }
 
 </style>

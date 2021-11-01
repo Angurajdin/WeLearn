@@ -89,7 +89,7 @@
                   <q-card-section>
                     <q-form
                       @submit="onLogin"
-                      @reset=""
+                      @reset="null"
                       class="q-gutter-md"
                     >
                       <q-input
@@ -151,7 +151,7 @@
                   <q-card-section>
                     <q-form
                       @submit="onSignup"
-                      @reset=""
+                      @reset="null"
                       class="q-gutter-md"
                     >
                       <q-input dense="dense" filled v-model="signupUsername" type="text">
