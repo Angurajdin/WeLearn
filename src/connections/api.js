@@ -14,4 +14,10 @@ export default class API{
         return res.data;
     }
 
+    static async meeting(data){
+        console.log("conn");
+        const res = await axios.post(url+"/meeting", data);
+        return res.data;
+    }
+
 }

@@ -5,5 +5,6 @@ const API = require('../controllers/api');
 
 router.post('/', API.login)
 router.post('/signup',  API.signup)
+router.post('/meeting',  API.meeting)
 
 module.exports = router;
