@@ -17,6 +17,9 @@
             <div class="text-subtitle2">Webinar title</div>
             <q-input dense v-model="title" autofocus @keyup.enter="form = false"/>
 
+            <div class="text-subtitle2">Conducted by</div>
+            <q-input dense v-model="conductedby" autofocus @keyup.enter="form = false"/>
+
             <div class="text-subtitle2">Description</div>
             <q-input dense type="textarea" rows="4" v-model="description" autofocus @keyup.enter="form = false"/>
 
@@ -29,7 +32,7 @@
             <div class="text-subtitle2">Link</div>
             <q-input dense v-model="link" autofocus @keyup.enter="form = false"/>
 
-            <div class="text-subtitle2">Duration</div>
+            <div class="text-subtitle2">Duration (in hours)</div>
             <q-input dense v-model="duration" autofocus @keyup.enter="form = false"/>
 
             <div class="text-subtitle2">Platform</div>
@@ -83,6 +86,7 @@
     setup() {
       let form = ref(false)
       let title = ref('');
+      let conductedby = ref('');
       let description = ref('');
       let time = ref('');
       let date = ref('');
@@ -109,9 +113,10 @@
       getMeetings();
 
       const onSubmit = async()=>{
-        console.log("dfhd");
+        /* console.log("dfhd"); */
         const res = await api.meeting({
           title: title.value,
+          conductedby : conductedby.value,
           description: description.value,
           time: title.value,
           date: date.value,
@@ -123,7 +128,7 @@
         else    error.value = res.message;
       }
 
-      return { data, onSubmit, form, title, date, description, time, link, duration, platform }
+      return { data, onSubmit, form, title, conductedby, date, description, time, link, duration, platform }
     }
   });
 </script>
