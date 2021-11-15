@@ -1,6 +1,12 @@
 <template> 
- <h5>TITLE</h5>
- <q-btn class="doubt" label="Ask doubts" color="primary" @click="form = true" />
+<center>
+   <div class="row title items-start example-container fit row no-wrap justify-center items-center content-center">
+<div class="example-cell col-4" tabindex="0"> <h4 style="color:white;"> TITLE</h4></div>
+      <div class="example-cell" tabindex="0"> <q-btn class="doubt" label="Ask doubts" color="primary" @click="form = true" /></div>
+ </div>
+ </center>
+
+
  
     <q-dialog v-model="form" persistent>
       
@@ -27,7 +33,7 @@
           <p style="font-size : 36px;text-transform: uppercase;font-weight:500;margin:10px 20px ;">
             Question</p>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime iusto rem voluptate amet? Quos nulla ex itaque nostrum eum maiores maxime modi ut soluta id atque, rem neque magnam delectus omnis ullam? Deleniti cum molestias voluptas nihil aperiam ex ipsam, natus rem quisquam ullam commodi rerum iste incidunt consequuntur exercitationem aut fugiat vitae tenetur, laborum iure qui, labore nam. Necessitatibus nobis error, beatae assumenda, sint ab incidunt rerum expedita quam, aut cupiditate accusamus? Exercitationem praesentium quo at omnis laborum eum inventore dolor sapiente atque laudantium ad minima deserunt modi in, iusto asperiores sunt autem ratione corporis consequatur illum. Voluptatum, blanditiis?
+            Lorem ipsum, dolor sit amet Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam alias quaerat id deserunt neque quae natus optio ex magni earum nostrum maiores eos pariatur asperiores temporibus quasi nobis, praesentium at enim consequuntur eveniet eligendi dolores cum accusamus. Odit dolores velit consequuntur! Dignissimos eos numquam minima quo atque sint hic optio et quos accusamus dolorem exercitationem in, eaque cupiditate! Aliquid animi repellat modi odit consequuntur rerum vero incidunt corporis recusandae commodi molestias dolor quo inventore, maxime iste nesciunt aperiam. Id corrupti repellendus dolorum voluptatem nihil? Voluptates itaque in mollitia quia dignissimos modi repudiandae tempore eum reprehenderit sunt. Non aliquam quas corrupti. consectetur adipisicing elit. Maxime iusto rem voluptate amet? Quos nulla ex itaque nostrum eum maiores maxime modi ut soluta id atque, rem neque magnam delectus omnis ullam? Deleniti cum molestias voluptas nihil aperiam ex ipsam, natus rem quisquam ullam commodi rerum iste incidunt consequuntur exercitationem aut fugiat vitae tenetur, laborum iure qui, labore nam. Necessitatibus nobis error, beatae assumenda, sint ab incidunt rerum expedita quam, aut cupiditate accusamus? Exercitationem praesentium quo at omnis laborum eum inventore dolor sapiente atque laudantium ad minima deserunt modi in, iusto asperiores sunt autem ratione corporis consequatur illum. Voluptatum, blanditiis?
                </p>
           </div>
 <div class="contain">
@@ -60,27 +66,23 @@ return { form}
 </script>
 
 <style scoped>
-h5 {
-  color: white;
-  margin-left: 10px;
-   
-  text-align: center;
-  right: 540px;
-}
+ 
 .doubt{
     border-radius: 17px;
 width: 157px;
 height: 49px;
-position: fixed;
-right: 350px;
+ 
 border: none;
 color: white;
-top:145px;
+ 
 
 
 }
+.title{
+  margin-top: -7rem;
+}
 .question{
-    max-height: 600px;
+    max-height: auto;
 margin : 50px ;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 border-radius: 44px;

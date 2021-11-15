@@ -1,7 +1,7 @@
 /* /*
 <template>
   <div>
-    <h4>You can conduct your own Webinar, here</h4>
+    <h5>You can conduct your own Webinar, here</h5>
 
     <div class="q-pa-md q-gutter-sm">
 
@@ -16,12 +16,13 @@
           <q-card-section>
             <div class="text-subtitle2">Webinar title</div>
             <q-input dense v-model="title" autofocus @keyup.enter="form = false"/>
+            
 
             <div class="text-subtitle2">Conducted by</div>
             <q-input dense v-model="conductedby" autofocus @keyup.enter="form = false"/>
 
             <div class="text-subtitle2">Description</div>
-            <q-input dense type="textarea" rows="4" v-model="description" autofocus @keyup.enter="form = false"/>
+            <q-input dense type="textarea" rows="3" v-model="description" autofocus @keyup.enter="form = false"/>
 
             <div class="text-subtitle2">Date</div>
             <q-input dense type="date" v-model="date" autofocus @keyup.enter="form = false"/>
@@ -134,12 +135,12 @@
 </script>
 
 <style scoped>
-h4 {
+h5 {
   color: white;
   margin-left: 10px;
   position: fixed;
-  top: 110px;
-  right: 540px;
+  top: 120px;
+  right: 580px;
 }
 
 .getstarted {

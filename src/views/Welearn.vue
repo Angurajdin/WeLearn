@@ -16,7 +16,7 @@
           placeholder="       Enter your email"
           required
         />
-        <q-btn type="submit" no-caps flat class="get" label="Start learning" />
+        <q-btn  type="submit" no-caps flat class="get" label="Start learning" />
       </div>
       <img class="book" src="../assets/book.png" /> 
       <div class="course">

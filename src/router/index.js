@@ -42,6 +42,11 @@ const routes = [
     name: "Content",
     component: () => import("../views/Content.vue"),
   },
+  {
+    path: "/Profile",
+    name: "Profile",
+    component: () => import("../views/Profile.vue"), 
+  }
 ];
 
 const router = createRouter({

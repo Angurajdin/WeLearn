@@ -1,7 +1,7 @@
 <template>
   <h5>Here, the Discussion World clear your doubts by raising questions</h5>
 
-  <div class="q-pa-md row items-start q-gutter-md">
+  <div class="q-pa-md row top items-start q-gutter-md">
     <q-card class="my-card">
       <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFTyg1ypb3TiEM39HrFp7vkB-lxSNvXbjl5Q&usqp=CAU"
@@ -54,6 +54,7 @@ h5 {
   color: white;
   margin-left: 10px;
   text-align: center;
+  margin-top: -5rem;
 }
 .my-card {
   border-radius: 17px;
@@ -61,4 +62,5 @@ h5 {
   height: 286px;
   margin-left: 100px;
 }
+ 
 </style>

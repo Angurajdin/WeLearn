@@ -55,9 +55,9 @@
                       </q-item-section>
                     </q-item>
 
-                    <q-item clickable v-close-popup @click="onItemClick">
+                    <q-item clickable v-close-popup to="/Profile" @click="onItemClick">
                       <q-item-section>
-                        <q-item-label>Setting</q-item-label>
+                        <q-item-label>profile</q-item-label>
                       </q-item-section>
                     </q-item>
 
@@ -370,7 +370,7 @@ input:focus {
 
 /* login css */
 .contain {
-  height: 349px;
+  max-height: auto /* 349px */;
   width: 543px;
   margin: 50px;
   background: #ffffff 0% 0% no-repeat padding-box;
