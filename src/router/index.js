@@ -34,6 +34,7 @@ const routes = [
         path: "/Questions",
         name: "Qa",
         component: () => import("../views/Qa.vue"),
+        props: true
       },
     ],
   },

@@ -59,15 +59,16 @@
           <q-card-section class="column left">
             <p style="font-size : 36px;text-transform: uppercase;font-weight:500;text-align:left ">
               {{ i.title }}</p>
+             <strong>  Conducted by - {{i.conductedby}}</strong> <br>
             <p style=" text-align:left ">
               {{ i.description }}
             </p>
           </q-card-section>
           <q-card-section ></q-card-section>
           <q-card-section class="column right col-3"  >
-            <p class="details"><i class="fas fa-calendar"></i><br>{{ i.time }}</p>
-            <p class="details"><i class="fas fa-clock"></i><br>{{ i.duration }}</p>
-            <p class="details"><i class="fas fa-video"></i><br>{{ i.platform }}</p>
+            <p class="details"><i class="fas fa-calendar"></i><br>Date - {{ i.date}} <br>Time -{{i.time }}</p>
+            <p class="details"><i class="fas fa-clock"></i><br>{{ i.duration }} Hours</p>
+            <p class="details"><i class="fas fa-video"></i><br>{{ i.platform }}</p> 
             <button class="details btn-part"><i class="fas fa-chevron-circle-right"></i><br>PARTICIPATE</button>
           </q-card-section>
         </q-card-section>
@@ -81,6 +82,7 @@
   import { ref, defineComponent } from 'vue'
   import api from "../connections/api";
   import { useRoute } from 'vue-router'
+  /* const nodemailer = require('nodemailer');  */
 
 
   export default defineComponent({
@@ -103,34 +105,60 @@
           if(meetings.success){
             data.value = meetings.data;
           }
-          else{
-            console.log("error in retrieving data");
+            else{
+              console.log("error in retrieving data");
+            }
+          } catch (e) {
+            console.log(e);
           }
-        } catch (e) {
-          console.log(e);
         }
-      }
 
-      getMeetings();
+        getMeetings();
 
-      const onSubmit = async()=>{
-        /* console.log("dfhd"); */
-        const res = await api.meeting({
-          title: title.value,
-          conductedby : conductedby.value,
-          description: description.value,
-          time: title.value,
-          date: date.value,
-          platform: platform.value,
-          duration: duration.value,
-          link: link.value
+        const onSubmit = async()=>{
+          /* console.log("dfhd"); */
+          const res = await api.meeting({
+            title: title.value,
+            conductedby : conductedby.value,
+            description: description.value,
+            time: time.value,
+            date: date.value,
+            platform: platform.value,
+            duration: duration.value,
+            link: link.value
+          });
+          if(res.success) console.log("meeting created"), alert('Your webinar details posted sucessfully');
+
+          else    error.value = res.message;
+        }
+ /* NODEMAILER 
+        const joinMeeting = async() => {
+           
+
+        const transporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 587,
+          secure: false,
+          auth: {
+            user: "20mx118@psgtech.ac.in",
+            pass: "mca124816"
+          }
         });
-        if(res.success) console.log("meeting created");
-        else    error.value = res.message;
+        
+        await transporter.sendMail({
+          from: "20mx118@psgtech.ac.in",
+          to: "20mx101@psgtech.ac.in",
+          subject: "Webinar details",
+          text: "This is the link for webinar",
+        })
+       
       }
+ NODEMAILER ENDS */
 
-      return { data, onSubmit, form, title, conductedby, date, description, time, link, duration, platform }
-    }
+    
+
+      return { /* joinMeeting, nodemailer, transporter, info, */  data  , onSubmit, form, title, conductedby, date, description, time, link, duration, platform  }
+          }
   });
 </script>
 
@@ -214,7 +242,7 @@ h5 {
   align-items: center;
   justify-content: center;
   width: 178px;
-  height: 112px;
+  height: 122px;
 
 }
 

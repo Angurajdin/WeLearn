@@ -8,17 +8,19 @@
       />
 
       <q-card-section>
-        <div class="text-h6">Java programming</div>
+        <div class="text-h6">{{Java}}</div>
       </q-card-section>
 
       <q-card-section class="q-pt-none">
         <center>
+            <router-link  :to="{name: 'Qa', params:{topic : Java }}">
           <q-btn
             class="rounded"
             rounded
             color="primary"
             label="View discussion"
           />
+            </router-link>
         </center>
       </q-card-section>
     </q-card>
@@ -28,17 +30,19 @@
       />
 
       <q-card-section>
-        <div class="text-h6">React Js</div>
+        <div class="text-h6">{{React}}</div>
       </q-card-section>
 
       <q-card-section class="q-pt-none">
         <center>
+          <router-link :to="{name: 'Qa', params:{topic : React  }}">
           <q-btn
             class="rounded"
             rounded
             color="primary"
             label="View discussion"
           />
+          </router-link>
         </center>
       </q-card-section>
     </q-card>
@@ -46,7 +50,15 @@
 </template>
 
 <script>
-export default {};
+import { ref } from 'vue';
+export default {
+
+  setup(){
+    let Java ="Java Programming"
+    let React = "React JS"
+    return {Java,React}
+  }
+};
 </script>
 
 <style scoped>
@@ -62,5 +74,7 @@ h5 {
   height: 286px;
   margin-left: 100px;
 }
- 
+.rounded{
+  text-decoration: none;
+}
 </style>

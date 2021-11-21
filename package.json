@@ -8,14 +8,17 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "axios": "^0.23.0",
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
+    "dns": "^0.2.2",
+    "express": "^4.17.1",
+    "i": "^0.3.7",
+    "mongoose": "^6.0.12",
+    "nodemailer": "^6.7.1",
+    "nodemon": "^2.0.14",
     "quasar": "^2.0.0",
     "vue": "^3.0.0",
-    "axios": "^0.23.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongoose": "^6.0.12",
-    "nodemon": "^2.0.14",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
@@ -25,5 +28,18 @@
     "@vue/compiler-sfc": "^3.0.0",
     "postcss-rtl": "^1.2.3",
     "vue-cli-plugin-quasar": "~4.0.2"
-  }
+  },
+  "description": "```\r npm install\r ```",
+  "main": ".postcssrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Angurajdin/WeLearn.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Angurajdin/WeLearn/issues"
+  },
+  "homepage": "https://github.com/Angurajdin/WeLearn#readme"
 }

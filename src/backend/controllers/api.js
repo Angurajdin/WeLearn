@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const Meeting = require('../models/meeting')
+const discussion = require('../models/discussion')
 
 
 module.exports = class API{
@@ -77,6 +78,17 @@ module.exports = class API{
             })
         } catch (err) {
             res.status(200).json({"success": false, "message": "error on getting data"});
+        }
+    }
+
+    
+    static async discussion(req, res){
+        try {
+            console.log(req.body);
+            await discussion.create(req.body);
+            res.status(200).json({success: true});
+        } catch (err) {
+            res.status(200).json({"success": false, "message": "error on inserting", "error": err.message});
         }
     }
 }

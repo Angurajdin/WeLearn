@@ -16,7 +16,7 @@
       />
       <q-toolbar>
         <q-toolbar-title style="text-align: center">
-          Course title
+          {{ $route.params.course }}
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -92,28 +92,91 @@
           </q-list>
         </div>
       </div>
-      <div v-else class="booklist">hence</div>
+      <div v-else class="booklist"> <br>
+
+      
+      <form @submit.prevent="search">
+        <div>
+          <input type="text" v-model="keyword" placeholder="Search..." class="input" required>
+          <input type="submit" value="Search" class="button">
+        </div>
+        <div>
+          <label for="order">Order by</label>&nbsp;
+          <select name="order" v-model="orderBy" @change="search">
+            <option value="newest">newest</option>
+            <option value="relevance">relevance</option>
+          </select>
+        </div>
+      </form>
+       <div class="loading" v-if="loadState == 'loading'"></div>
+      <BookList v-if="loadState == 'success'" :books="books" />
+      </div>
     </q-drawer>
 
-    <q-page-container>
-      
+    <q-page-container> 
+
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { ref } from "vue";
-export default {
+import { ref,defineComponent } from "vue";
+import BookItem from '../components/BookItem.vue'
+import axios from 'axios'
+import {useRoute} from "vue-router";
+
+
+export default defineComponent({
+  components : {BookItem},
   setup() {
+    
     let leftDrawerOpen = ref("True");
     let viewvideo = ref("true");
     let link = ref("video");
+    const videos = ref(null);
+    const router = useRoute()
+    const courseName = router.params.course;
+
     const book = () => {
       viewvideo.value = false;
     };
     const viewVideoTrue = () => viewvideo.value = true;
+    
+    const getVideos = async () =>{
+      videos.value = await axios.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyDVv7hLhb3r8YQ5wDLjUc10f2Dm4OECHTY&type=video&part=snippet&maxResults=5&q="+courseName);
+      videos.value = videos.value.data.items;
+      console.log(videos.value);
+    }
 
-    return { leftDrawerOpen, viewvideo, book, link, viewVideoTrue };
+    if(videos.value==null)  getVideos();
+
+
+    /* **** BOok API **** */
+     let books = ref([])
+      let keyword = router.params.course
+      let orderBy = ref('newest')
+      let maxResults = ref('10')
+      let loadState = ref('')
+
+      const search = () =>{
+        loadState.value = 'loading'
+      axios
+        .get(
+          `https://www.googleapis.com/books/v1/volumes?q=intitle:${
+            keyword.value
+          }&orderBy=${orderBy.value}&maxResults=${maxResults.value}`
+        )
+        .then(response => {
+          console.log(response.data)
+          books.value = response.data
+          loadState.value = 'success'
+        })
+
+      }
+
+
+
+    return {books,keyword,orderBy,maxResults,loadState,search, videos,leftDrawerOpen, viewvideo, book, link, viewVideoTrue };
   },
-};
+});
 </script>

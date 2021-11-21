@@ -1,7 +1,7 @@
-<template> 
+<template>  
 <center>
    <div class="row title items-start example-container fit row no-wrap justify-center items-center content-center">
-<div class="example-cell col-4" tabindex="0"> <h4 style="color:white;"> TITLE</h4></div>
+<div class="example-cell col-4" tabindex="0"> <h4 style="color:white;"> {{nNfkGizHXAMm92ANoLnchDVw5nIV1qCZy2VYYK4BouU2rIEyl9uohgYpcrlNytGgmMttTi0NiLncxnSogTCX25CONAjmcpvRCXnfXG4TOinPm8ttQKc07nFzuc3njLxtLrfpnJOXzeU2m}}{{title}}</h4></div>
       <div class="example-cell" tabindex="0"> <q-btn class="doubt" label="Ask doubts" color="primary" @click="form = true" /></div>
  </div>
  </center>
@@ -11,16 +11,16 @@
     <q-dialog v-model="form" persistent>
       
       <q-card class="questionarea" style="min-width: 450px">
-        <p style="color:black;font-weight:660;margin:20px;text-align:center">Title</p>
+        <p style="color:black;font-weight:660;margin:20px;text-align:center">{{title}}</p>
       
         <q-card-section>
           <div class="text-subtitle2">Your question</div>
-          <q-input dense v-model="question" type="textarea" autofocus @keyup.enter="form = false" />          
+          <q-input dense v-model="question"  type="textarea" autofocus @keyup.enter="form = false" />          
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
           <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Post" v-close-popup />
+          <q-btn flat label="Post" @click="postquestion" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -30,14 +30,13 @@
     <q-card class="my-card question"  style="max-width: 1300px;">
       <q-card-section>
         <div class="left">
-          <p style="font-size : 36px;text-transform: uppercase;font-weight:500;margin:10px 20px ;">
+          <p style="font-size : 26px;text-transform: uppercase;font-weight:500;margin:10px 20px ;">
             Question</p>
-          <p>
-            Lorem ipsum, dolor sit amet Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam alias quaerat id deserunt neque quae natus optio ex magni earum nostrum maiores eos pariatur asperiores temporibus quasi nobis, praesentium at enim consequuntur eveniet eligendi dolores cum accusamus. Odit dolores velit consequuntur! Dignissimos eos numquam minima quo atque sint hic optio et quos accusamus dolorem exercitationem in, eaque cupiditate! Aliquid animi repellat modi odit consequuntur rerum vero incidunt corporis recusandae commodi molestias dolor quo inventore, maxime iste nesciunt aperiam. Id corrupti repellendus dolorum voluptatem nihil? Voluptates itaque in mollitia quia dignissimos modi repudiandae tempore eum reprehenderit sunt. Non aliquam quas corrupti. consectetur adipisicing elit. Maxime iusto rem voluptate amet? Quos nulla ex itaque nostrum eum maiores maxime modi ut soluta id atque, rem neque magnam delectus omnis ullam? Deleniti cum molestias voluptas nihil aperiam ex ipsam, natus rem quisquam ullam commodi rerum iste incidunt consequuntur exercitationem aut fugiat vitae tenetur, laborum iure qui, labore nam. Necessitatibus nobis error, beatae assumenda, sint ab incidunt rerum expedita quam, aut cupiditate accusamus? Exercitationem praesentium quo at omnis laborum eum inventore dolor sapiente atque laudantium ad minima deserunt modi in, iusto asperiores sunt autem ratione corporis consequatur illum. Voluptatum, blanditiis?
+          <p style="  margin:10px 20px ;"> ANswer
                </p>
           </div>
 <div class="contain">
-         <div class="answer">
+         <div class="answerdetails">
           <q-input    style="max-width:90%;margin: 0px 0px 30px;" rounded outlined v-model="text" label="Answer" />
           </div>
           <div class="enter">
@@ -47,22 +46,49 @@
         <p style="font-weight:600;font-size:18px;text-align:center;margin:3px">No of answers</p>
         </div>
  </div>
-  
+  {{date}}
       </q-card-section>
     </q-card>
 </template>
 
 <script>
-import { ref } from 'vue'
-export default {
-setup(){
+import { defineComponent, ref } from 'vue'
+import api from "../connections/api";
+ 
+export default defineComponent ({
+  props :['topic'],
+setup(props){
+  let title = props.topic
+  let question = ref('')
+  /* let answer = ref([]) */
+  const date = new Date()
+  /* let currentUser = currentUser.value */
+ 
+
+  const postquestion = async() =>{
+
+    const res = await api.discussion({
+      question : question.value,
+      topic : title.value,
+      posteddate : date.value,
+     /*  doubtperson : currentUser.value 
+     
+     */
+     
+    });
+    if(res.success) console.log("question posted"), alert('Question posted sucessfully');
+
+           
+   
+  }
+
  
 let form = ref(false)
  
  
-return { form}
+return { form,title,postquestion}
 }
-}
+})
 </script>
 
 <style scoped>
@@ -105,7 +131,7 @@ opacity: 0.84;
 backdrop-filter: blur(30px);
 -webkit-backdrop-filter: blur(30px);  
 }
-.answer{
+.answerdetails{
    flex-direction: row;flex-grow: 3;
 }
 .contain{

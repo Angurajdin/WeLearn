@@ -238,6 +238,7 @@ export default defineComponent({
     let signupEmail = ref('');
     let signupPassword = ref('');
     let loginEmail = ref('');
+/*     let dob = ref(' ') */
     let loginPassword = ref('');
     let signupMobile = ref('');
     let signupUsername = ref('');
@@ -247,7 +248,7 @@ export default defineComponent({
 
     const onSignup = async() =>{
 
-      if(signupPassword.value.trim()!=='' && signupUsername.value.trim()!=='' && signupEmail.value.trim()!=='' && signupMobile.value.trim()!=='' ){
+      if(signupPassword.value.trim()!=='' && signupUsername.value.trim()!=='' && signupEmail.value.trim()!=='' && signupMobile.value.trim()!=='' /* &&  dob.value.trim()!==' ' */ ){
         error.value = null
         isLoading.value = true
         if(signupUsername.value.trim().length<3){
@@ -261,7 +262,8 @@ export default defineComponent({
             userName: signupUsername.value,
             emailID: signupEmail.value,
             password: signupPassword.value,
-            mobile: signupMobile.value
+            mobile: signupMobile.value,
+           /*  dob : dob.value */
           });
           if(res.success){
             currentUser.value = res.currentUser
@@ -309,7 +311,7 @@ export default defineComponent({
       currentUser.value = null;
     }
 
-    return { logout, currentUser, tab, search, error, onLogin,onSignup,login, isPwd, signup, signupEmail, signupPassword, loginPassword, signupUsername, loginEmail, signupMobile };
+    return { logout, currentUser, /* dob */ tab, search, error, onLogin,onSignup,login, isPwd, signup, signupEmail, signupPassword, loginPassword, signupUsername, loginEmail, signupMobile };
   },
 });
 </script>

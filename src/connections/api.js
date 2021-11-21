@@ -24,4 +24,9 @@ export default class API{
         return res.data;
     }
 
+    static async discussion(){
+        const res = await axios.post(url+"/discussion");
+        return res.data;
+    }
+
 }
