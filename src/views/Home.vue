@@ -18,13 +18,15 @@
                 type="text"
                 placeholder="       search course"
               />
-              <q-btn
-                type="submit"
-                flat
-                no-caps
-                class="searchbutton"
-                label="Search"
-              />
+              <router-link :to="{name: 'Content', params:{course : search  }}">
+                <q-btn
+                  type="submit"
+                  flat
+                  no-caps
+                  class="searchbutton"
+                  label="Search"
+                />
+              </router-link>
             </div>
             <div v-if="currentUser==null">
               <q-btn

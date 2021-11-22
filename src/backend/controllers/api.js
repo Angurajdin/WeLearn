@@ -4,10 +4,11 @@ const Discussion = require("../models/discussion");
 
 module.exports = class API {
   static async login(req, res) {
+    console.log(req.body?.emailID);
     try {
-      User.find({ Email: req.body.email })
+      User.find({ emailID: req.body?.emailID })
         .then((currentUser) => {
-          // console.log(currentUser);
+          console.log(currentUser);
           if (currentUser !== []) {
             console.log(currentUser[0].password, req.body.password);
             if (currentUser[0].password === req.body.password) {

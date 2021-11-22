@@ -152,7 +152,8 @@ import { useRoute } from "vue-router";
 
 export default defineComponent({
   components: {},
-  setup() {
+  props: ["courseName"],
+  setup(props) {
     let leftDrawerOpen = ref("True");
     let viewvideo = ref("true");
     let link = ref("video");
@@ -185,8 +186,6 @@ export default defineComponent({
 
     const search = () => {
       loadState.value = "loading";
-
-      console.log(router.params.course);
       axios
         .get(
           `https://www.googleapis.com/books/v1/volumes?q=intitle:${router.params.course}&orderBy=${orderBy.value}&maxResults=${maxResults.value}&`

@@ -42,6 +42,7 @@ const routes = [
     path: "/Content",
     name: "Content",
     component: () => import("../views/Content.vue"),
+    props: true
   },
   {
     path: "/Profile",

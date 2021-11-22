@@ -116,7 +116,7 @@ import { defineComponent, ref } from "vue";
 import api from "../connections/api";
 
 export default defineComponent({
-  props: ["topic"],
+  props: ["course"],
   setup(props) {
     let data = ref([]);
     let title = props.topic;
