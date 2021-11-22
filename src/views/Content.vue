@@ -121,19 +121,16 @@
           <div class="loading" v-if="loadState == 'loading'"></div>
           <div v-if="books.length > 1">
             <div v-for="i in books" :key="i.id">
-              <q-card
-                class="my-card"
-                style="max-width: 200px; max-height: 350px"
-              >
+              <q-card class="my-card" style="max-width: 200px">
                 <img :src="i.volumeInfo.imageLinks?.smallThumbnail" />
 
                 <q-card-section>
-                  <div class="text-subtitle2">{{}}</div>
-                  <div class="text-subtitle1">fgjghk</div>
+                  <div class="text-subtitle2">{{ i.volumeInfo.title }}</div>
+                  <div class="text-subtitle1">{{ i.volumeInfo.subtitle }}</div>
                 </q-card-section>
 
                 <q-card-section class="q-pt-none">
-                  {{ i.volumeInfo.imageLinks?.smallThumbnail }}
+                  {{ i.volumeInfo.description.substring(0, 33) + "..." }}
                 </q-card-section>
               </q-card>
               <br />
