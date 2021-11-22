@@ -5,8 +5,8 @@ const discussionSchema = mongoose.Schema({
     question : String,
     topic : String,
     posteddate : String,
-    /* doubtperson : String,
-    answers : Array, */
+     doubtperson : String,
+    answers : Array, 
     
     
 

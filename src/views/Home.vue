@@ -11,7 +11,8 @@
             <q-route-tab name="webiner" to="/Webinar" label="Webinar" />
             <q-route-tab name="discussion" to="/Discussion" label="Discussion" />
             <div class="searchpair">
-              <input
+              <q-select
+              :options="searchvalue"
                 v-model="search"
                 class="search"
                 type="text"
@@ -246,6 +247,8 @@ export default defineComponent({
     let tab = ref('home');
     let currentUser = ref(null);
 
+    let searchvalue = ['Data structures','Python programming','machine learning','C++ programming']
+
     const onSignup = async() =>{
 
       if(signupPassword.value.trim()!=='' && signupUsername.value.trim()!=='' && signupEmail.value.trim()!=='' && signupMobile.value.trim()!=='' /* &&  dob.value.trim()!==' ' */ ){
@@ -311,7 +314,7 @@ export default defineComponent({
       currentUser.value = null;
     }
 
-    return { logout, currentUser, /* dob */ tab, search, error, onLogin,onSignup,login, isPwd, signup, signupEmail, signupPassword, loginPassword, signupUsername, loginEmail, signupMobile };
+    return { logout, currentUser, /* dob */ tab, search,searchvalue, error, onLogin,onSignup,login, isPwd, signup, signupEmail, signupPassword, loginPassword, signupUsername, loginEmail, signupMobile };
   },
 });
 </script>
@@ -350,6 +353,7 @@ export default defineComponent({
   color: white;
   margin-left: 300px;
   height: 36px;
+  width: 170px;
   justify-content: flex-start;
 }
 input:focus {

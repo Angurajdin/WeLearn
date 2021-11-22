@@ -69,13 +69,31 @@
             <p class="details"><i class="fas fa-calendar"></i><br>Date - {{ i.date}} <br>Time -{{i.time }}</p>
             <p class="details"><i class="fas fa-clock"></i><br>{{ i.duration }} Hours</p>
             <p class="details"><i class="fas fa-video"></i><br>{{ i.platform }}</p> 
-            <button class="details btn-part"><i class="fas fa-chevron-circle-right"></i><br>PARTICIPATE</button>
+            <button class="details btn-part" @click="copy = true"><i class="fas fa-chevron-circle-right"></i><br>PARTICIPATE</button>
           </q-card-section>
         </q-card-section>
       </q-card>
+      <!-- copy link -->
+   <q-dialog v-model="copy" persistent>
+      <q-card style="min-width:1000px; max-width:700px">
+        <q-card-section class="row items-center">
+          <q-avatar icon="link" color="primary" text-color="white" />
+          <span class="q-ml-sm"><Strong> Kindly save this link to join this Webinar</Strong></span>
+        </q-card-section>
+            &nbsp;&nbsp;&nbsp;&nbsp; {{i.link}}
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn flat label="Copy link" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     </div>
   </div>
   <br>
+
+
+
+
 </template>
 
 <script>
@@ -94,10 +112,11 @@
       let time = ref('');
       let date = ref('');
       let platform = ref('');
-      let duration = ref('');
+      let duration = ref(''); 
       let link = ref('');
       const data = ref([]);
       const router = useRoute()
+      let copy = ref(false)
 
       const getMeetings = async ()=>{
         try{
@@ -157,7 +176,7 @@
 
     
 
-      return { /* joinMeeting, nodemailer, transporter, info, */  data  , onSubmit, form, title, conductedby, date, description, time, link, duration, platform  }
+      return { /* joinMeeting, nodemailer, transporter, info, */  data  ,copy, onSubmit, form, title, conductedby, date, description, time, link, duration, platform  }
           }
   });
 </script>
