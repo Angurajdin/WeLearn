@@ -94,8 +94,8 @@
       </div>
       <div v-else class="booklist"> <br>
 
-      
-      <form @submit.prevent="search">
+      <!-- filters & search -->
+ <form @submit.prevent="search">
         <div>
           <input type="text" v-model="keyword" placeholder="Search..." class="input" required>
           <input type="submit" value="Search" class="button">
@@ -108,8 +108,26 @@
           </select>
         </div>
       </form>
-       <div class="loading" v-if="loadState == 'loading'"></div>
-      <BookList v-if="loadState == 'success'" :books="books" />
+      <br>
+      <!-- CARD FOR DISPLAY -->
+      <center>
+         <div class="loading" v-if="loadState == 'loading'"></div>
+        <q-card  class="my-card" style="max-width:200px;max-height:350px">
+      <img src="https://cdn.quasar.dev/img/mountains.jpg">
+ 
+      <q-card-section>
+        <div class="text-subtitle2">{{}}</div>
+        <div class="text-subtitle1">by John Doe</div>
+      </q-card-section>
+
+      <q-card-section class="q-pt-none">
+        {{ lorem }}
+      </q-card-section>
+    </q-card>
+    
+      </center>
+     
+       
       </div>
     </q-drawer>
 
@@ -121,13 +139,13 @@
 
 <script>
 import { ref,defineComponent } from "vue";
-import BookItem from '../components/BookItem.vue'
+ 
 import axios from 'axios'
 import {useRoute} from "vue-router";
 
 
 export default defineComponent({
-  components : {BookItem},
+  components : { },
   setup() {
     
     let leftDrawerOpen = ref("True");
