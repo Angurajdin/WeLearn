@@ -92,109 +92,131 @@
           </q-list>
         </div>
       </div>
-      <div v-else class="booklist"> <br>
+      <div v-else class="booklist">
+        <br />
 
-      <!-- filters & search -->
- <form @submit.prevent="search">
-        <div>
-          <input type="text" v-model="keyword" placeholder="Search..." class="input" required>
-          <input type="submit" value="Search" class="button">
-        </div>
-        <div>
-          <label for="order">Order by</label>&nbsp;
-          <select name="order" v-model="orderBy" @change="search">
-            <option value="newest">newest</option>
-            <option value="relevance">relevance</option>
-          </select>
-        </div>
-      </form>
-      <br>
-      <!-- CARD FOR DISPLAY -->
-      <center>
-         <div class="loading" v-if="loadState == 'loading'"></div>
-        <q-card  class="my-card" style="max-width:200px;max-height:350px">
-      <img src="https://cdn.quasar.dev/img/mountains.jpg">
- 
-      <q-card-section>
-        <div class="text-subtitle2">{{}}</div>
-        <div class="text-subtitle1">by John Doe</div>
-      </q-card-section>
+        <!-- filters & search -->
+        <form @submit.prevent="search">
+          <!-- <div>
+            <input
+              type="text"
+              v-model="keyword"
+              placeholder="Search..."
+              class="input"
+              required
+            />
+            <input type="submit" value="Search" class="button" />
+          </div> -->
+          <div>
+            <label for="order">Order by</label>&nbsp;
+            <select name="order" v-model="orderBy" @change="search">
+              <option value="newest">newest</option>
+              <option value="relevance">relevance</option>
+            </select>
+          </div>
+        </form>
+        <br />
+        <!-- CARD FOR DISPLAY -->
+        <center>
+          <div class="loading" v-if="loadState == 'loading'"></div>
+          <div v-if="books.length > 1">
+            <div v-for="i in books" :key="i.id">
+              <q-card
+                class="my-card"
+                style="max-width: 200px; max-height: 350px"
+              >
+                <img :src="i.volumeInfo.imageLinks?.smallThumbnail" />
 
-      <q-card-section class="q-pt-none">
-        {{ lorem }}
-      </q-card-section>
-    </q-card>
-    
-      </center>
-     
-       
+                <q-card-section>
+                  <div class="text-subtitle2">{{}}</div>
+                  <div class="text-subtitle1">fgjghk</div>
+                </q-card-section>
+
+                <q-card-section class="q-pt-none">
+                  {{ i.volumeInfo.imageLinks?.smallThumbnail }}
+                </q-card-section>
+              </q-card>
+              <br />
+            </div>
+          </div>
+        </center>
       </div>
     </q-drawer>
 
-    <q-page-container> 
-
-    </q-page-container>
+    <q-page-container> </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { ref,defineComponent } from "vue";
- 
-import axios from 'axios'
-import {useRoute} from "vue-router";
+import { ref, defineComponent } from "vue";
 
+import axios from "axios";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
-  components : { },
+  components: {},
   setup() {
-    
     let leftDrawerOpen = ref("True");
     let viewvideo = ref("true");
     let link = ref("video");
     const videos = ref(null);
-    const router = useRoute()
-    const courseName = router.params.course;
+    const router = useRoute();
+    let courseName = router.params.course;
 
     const book = () => {
       viewvideo.value = false;
     };
-    const viewVideoTrue = () => viewvideo.value = true;
-    
-    const getVideos = async () =>{
-      videos.value = await axios.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyDVv7hLhb3r8YQ5wDLjUc10f2Dm4OECHTY&type=video&part=snippet&maxResults=5&q="+courseName);
+    const viewVideoTrue = () => (viewvideo.value = true);
+
+    const getVideos = async () => {
+      videos.value = await axios.get(
+        "https://www.googleapis.com/youtube/v3/search?key=AIzaSyDVv7hLhb3r8YQ5wDLjUc10f2Dm4OECHTY&type=video&part=snippet&maxResults=5&q=" +
+          courseName
+      );
       videos.value = videos.value.data.items;
       console.log(videos.value);
-    }
+    };
 
-    if(videos.value==null)  getVideos();
-
+    // if (videos.value == null) getVideos();
 
     /* **** BOok API **** */
-     let books = ref([])
-      let keyword = router.params.course
-      let orderBy = ref('newest')
-      let maxResults = ref('10')
-      let loadState = ref('')
+    let books = ref([]);
+    let keyword = router.params.course;
+    let orderBy = ref("newest");
+    let maxResults = ref("10");
+    let loadState = ref("");
 
-      const search = () =>{
-        loadState.value = 'loading'
+    const search = () => {
+      loadState.value = "loading";
+
+      console.log(router.params.course);
       axios
         .get(
-          `https://www.googleapis.com/books/v1/volumes?q=intitle:${
-            keyword.value
-          }&orderBy=${orderBy.value}&maxResults=${maxResults.value}`
+          `https://www.googleapis.com/books/v1/volumes?q=intitle:${router.params.course}&orderBy=${orderBy.value}&maxResults=${maxResults.value}&`
         )
-        .then(response => {
-          console.log(response.data)
-          books.value = response.data
-          loadState.value = 'success'
-        })
+        .then((response) => {
+          console.log(response.data.items);
+          books.value = response.data.items;
+          loadState.value = "success";
+        });
+    };
 
-      }
+    search();
 
-
-
-    return {books,keyword,orderBy,maxResults,loadState,search, videos,leftDrawerOpen, viewvideo, book, link, viewVideoTrue };
+    return {
+      books,
+      keyword,
+      orderBy,
+      maxResults,
+      loadState,
+      search,
+      videos,
+      leftDrawerOpen,
+      viewvideo,
+      book,
+      link,
+      viewVideoTrue,
+    };
   },
 });
 </script>
