@@ -11,14 +11,14 @@
             <q-route-tab name="webiner" to="/Webinar" label="Webinar" />
             <q-route-tab name="discussion" to="/Discussion" label="Discussion" />
             <div class="searchpair">
-              <q-select
+              <q-input
               :options="searchvalue"
                 v-model="search"
                 class="search"
                 type="text"
                 placeholder="       search course"
               />
-              <router-link :to="{name: 'Content', params:{course : search  }}">
+              <router-link style="text-decoration:none" :to="{name: 'Content', params:{course : search  }}">
                 <q-btn
                   type="submit"
                   flat
@@ -249,7 +249,7 @@ export default defineComponent({
     let tab = ref('home');
     let currentUser = ref(null);
 
-    let searchvalue = ['Data structures','Python programming','machine learning','C++ programming']
+    let searchvalue = ['Data structures','Machine learning','C++ programming', ]
 
     const onSignup = async() =>{
 
@@ -312,6 +312,8 @@ export default defineComponent({
 
     }
 
+    
+
     const logout = ()=>{
       currentUser.value = null;
     }
@@ -355,7 +357,8 @@ export default defineComponent({
   color: white;
   margin-left: 300px;
   height: 36px;
-  width: 170px;
+  min-width: 170px;
+  padding-left: 20px;
   justify-content: flex-start;
 }
 input:focus {

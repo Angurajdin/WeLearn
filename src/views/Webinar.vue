@@ -1,4 +1,4 @@
-/* /*
+/* /* /*
 <template>
   <div>
     <h5>You can conduct your own Webinar, here</h5>
@@ -6,7 +6,8 @@
     <div class="q-pa-md q-gutter-sm">
       <q-btn
         class="getstarted"
-        label="Get started"
+        icon="add"
+        label="CREATE"
         color="primary"
         @click="form = true"
       />
@@ -56,6 +57,7 @@
               dense
               type="date"
               v-model="date"
+               
               autofocus
               @keyup.enter="form = false"
             />
@@ -135,30 +137,31 @@
             <p class="details">
               <i class="fas fa-video"></i><br />{{ i.platform }}
             </p>
-            <button class="details btn-part" @click="copy = true">
-              <i class="fas fa-chevron-circle-right"></i><br />PARTICIPATE
+            <button @click="showlink = true " class="details btn-part" >
+              <i class="fas fa-chevron-circle-right" ></i><br />PARTICIPATE
             </button>
+             
           </q-card-section>
         </q-card-section>
+
+        <div v-if="showlink">
+             
+               <q-banner class="bg-grey-3  " style="border-radius:44px">
+      <template v-slot:avatar>
+        <q-icon name="link" color="primary" />
+      </template>
+      <strong>{{i.link}}</strong>
+      <template v-slot:action>
+        <q-btn flat color="primary" @click="showlink = false" icon="content_copy" label="Copy link" />
+      </template>
+    </q-banner>
+           
+         
+
+        </div>
       </q-card>
       <!-- copy link -->
-      <q-dialog v-model="copy" persistent>
-        <q-card style="min-width: 1000px; max-width: 700px">
-          <q-card-section class="row items-center">
-            <q-avatar icon="link" color="primary" text-color="white" />
-            <span class="q-ml-sm"
-              ><Strong>
-                Kindly save this link to join this Webinar</Strong
-              ></span
-            >
-          </q-card-section>
-          {{ i.link }}
-          <q-card-actions align="right">
-            <q-btn flat label="Cancel" color="primary" v-close-popup />
-            <q-btn flat label="Copy link" color="primary" v-close-popup />
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
+       
     </div>
   </div>
   <br />
@@ -172,6 +175,7 @@ import { useRoute } from "vue-router";
 
 export default defineComponent({
   setup() {
+     
     let form = ref(false);
     let title = ref("");
     let conductedby = ref("");
@@ -183,7 +187,11 @@ export default defineComponent({
     let link = ref("");
     const data = ref([]);
     const router = useRoute();
-    let copy = ref(false);
+    let showlink = ref(false)
+   
+
+
+    
 
     const getMeetings = async () => {
       try {
@@ -218,6 +226,19 @@ export default defineComponent({
         getMeetings();
       } else error.value = res.message;
     };
+
+//Copy clipboard
+
+    const copy = () =>{
+      try{
+        navigator.clipboard.writeText(link)
+      }catch(e){
+        throw e
+      }
+    }
+
+// past date disable
+
     /* NODEMAILER 
         const joinMeeting = async() => {
            
@@ -245,6 +266,7 @@ export default defineComponent({
     return {
       /* joinMeeting, nodemailer, transporter, info, */ data,
       copy,
+       
       onSubmit,
       form,
       title,
@@ -255,6 +277,7 @@ export default defineComponent({
       link,
       duration,
       platform,
+      showlink
     };
   },
 });
@@ -341,4 +364,5 @@ h5 {
   -webkit-backdrop-filter: blur(30px);
   width: 600px;
 }
-</style>
+ 
+</style> */

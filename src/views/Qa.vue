@@ -1,4 +1,4 @@
-<template>
+/* <template>
   <center>
     <div
       class="
@@ -16,9 +16,7 @@
     >
       <div class="example-cell col-4" tabindex="0">
         <h4 style="color: white">
-          {{
-            nNfkGizHXAMm92ANoLnchDVw5nIV1qCZy2VYYK4BouU2rIEyl9uohgYpcrlNytGgmMttTi0NiLncxnSogTCX25CONAjmcpvRCXnfXG4TOinPm8ttQKc07nFzuc3njLxtLrfpnJOXzeU2m
-          }}{{ title }}
+           {{ title }}
         </h4>
       </div>
       <div class="example-cell" tabindex="0">
@@ -60,20 +58,20 @@
 
   <!-- Card -->
 
-  <q-card class="my-card question" style="max-width: 1300px">
+  <q-card  v-for="i in data" :key="i.id" class="my-card question" style="max-width: 1300px">
     <q-card-section>
       <div class="left">
         <p
           style="
-            font-size: 26px;
-            text-transform: uppercase;
-            font-weight: 500;
+            font-size: 22px;
+            
+            font-weight: 400;
             margin: 10px 20px;
           "
         >
-          Question
+          {{i.question}}
         </p>
-        <p style="margin: 10px 20px">ANswer</p>
+        <p style="margin: 10px 20px">{{i.answers}}</p>
       </div>
       <div class="contain">
         <div class="answerdetails">
@@ -82,7 +80,7 @@
             rounded
             outlined
             v-model="text"
-            label="Answer"
+            label="Enter your answer here"
           />
         </div>
         <div class="enter">
@@ -106,23 +104,51 @@
           </p>
         </div>
       </div>
-      {{ date }}
+      Posten on &nbsp;  {{ i.posteddate }} <br><br>
+ 
+
+ <!--  total answers list-->
+
+      <q-expansion-item
+        expand-icon-toggle
+        expand-separator
+        icon="question_answer"
+        label="Total answers"
+         
+      >
+        <q-card>
+          <q-card-section>
+             <!-- list -->
+              <q-banner inline-actions rounded class="bg-white text-black">
+      Answer 1
+
+      <template v-slot:action>
+       
+        <q-btn flat icon="task_alt" color="green" label="Mark as correct" />
+        <q-seperator/>
+              </template>
+    </q-banner>
+          </q-card-section>
+        </q-card>
+      </q-expansion-item>
     </q-card-section>
+   
   </q-card>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
 import api from "../connections/api";
+import moment from 'moment'
 
 export default defineComponent({
-  props: ["course"],
+  props: ["course","topic"],
   setup(props) {
     let data = ref([]);
     let title = props.topic;
     let question = ref("");
     let answer = ref([]);
-    const date = new Date();
+    const date = moment().format("MMM Do YY");
     /* let currentUser = currentUser.value */
 
     const postquestion = async () => {
@@ -155,9 +181,10 @@ export default defineComponent({
 
     getQuestions();
 
+     
     let form = ref(false);
 
-    return { question, form, title, postquestion };
+    return { question, form, title, postquestion ,data};
   },
 });
 </script>
@@ -208,3 +235,4 @@ export default defineComponent({
 }
 </style>
 
+ */

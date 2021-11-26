@@ -30,7 +30,7 @@
     </q-card>
     </router-link>
 
- <router-link :to="{ name: 'Content', params: { course: 'Adobe Xd' } }" style="text-decoration: none; color: inherit;">
+ <router-link :to="{ name: 'Content', params: { course: 'DBMS' } }" style="text-decoration: none; color: inherit;">
     <q-card class="my-card">
       <q-img
       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLMtk5b2bjxi5p4xUaQECtWbzHFunu3TvD7YDXr-1WfQunOjixxINr5AeXbHrpP43mabU&usqp=CAU"

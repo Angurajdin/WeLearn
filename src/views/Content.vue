@@ -14,6 +14,12 @@
         color="white"
         label="Save content"
       />
+      <q-btn
+      unelevated
+      icon="home"
+      to="/"
+      
+      />
       <q-toolbar>
         <q-toolbar-title style="text-align: center">
           {{ $route.params.course }}
@@ -120,19 +126,23 @@
         <center>
           <div class="loading" v-if="loadState == 'loading'"></div>
           <div v-if="books.length > 1">
+            
             <div v-for="i in books" :key="i.id">
+            <a style="text-decoration:none; color: black" :href="i.volumeInfo.previewLink" target="_blank">
               <q-card class="my-card" style="max-width: 200px">
                 <img :src="i.volumeInfo.imageLinks?.smallThumbnail" />
 
                 <q-card-section>
                   <div class="text-subtitle2">{{ i.volumeInfo.title }}</div>
                   <div class="text-subtitle1">{{ i.volumeInfo.subtitle }}</div>
+                  
                 </q-card-section>
-
-                <q-card-section class="q-pt-none">
+                
+                <!-- <q-card-section class="q-pt-none">
                   {{ i.volumeInfo.description.substring(0, 33) + "..." }}
-                </q-card-section>
+                </q-card-section> -->
               </q-card>
+             </a>
               <br />
             </div>
           </div>
@@ -140,7 +150,9 @@
       </div>
     </q-drawer>
 
-    <q-page-container> </q-page-container>
+    <q-page-container>
+      
+       </q-page-container>
   </q-layout>
 </template>
 
@@ -180,7 +192,7 @@ export default defineComponent({
     /* **** BOok API **** */
     let books = ref([]);
     let keyword = router.params.course;
-    let orderBy = ref("newest");
+    let orderBy = ref("relevance");
     let maxResults = ref("10");
     let loadState = ref("");
 
@@ -198,6 +210,7 @@ export default defineComponent({
     };
 
     search();
+    
 
     return {
       books,
