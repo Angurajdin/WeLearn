@@ -96,6 +96,7 @@
 
             <q-separator />
           </q-list>
+          
         </div>
       </div>
       <div v-else class="booklist">
@@ -151,7 +152,11 @@
     </q-drawer>
 
     <q-page-container>
-      
+      <center>
+      <iframe id="ytplayer" type="text/html" width="1060" height="620"
+  src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe>
+  </center>
        </q-page-container>
   </q-layout>
 </template>

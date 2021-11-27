@@ -10,6 +10,9 @@
             <q-route-tab name="explore" to="/Explore" label="Explore" />
             <q-route-tab name="webiner" to="/Webinar" label="Webinar" />
             <q-route-tab name="discussion" to="/Discussion" label="Discussion" />
+            
+            
+            
             <div class="searchpair">
               <q-input
               :options="searchvalue"
