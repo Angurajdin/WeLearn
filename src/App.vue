@@ -3,22 +3,22 @@
 </template>
 
 <script>
-import { ref } from 'vue'
- 
+import { ref, defineComponent, provide } from 'vue'
+import store from './commonData'
 
-export default {
+export default defineComponent({
+
   name: 'LayoutDefault',
 
-  components: {
-     
-  },
-
   setup () {
+
+    provide('store', store)
+
     return {
       leftDrawerOpen: ref(false)
     }
   }
-}
+});
 </script>
 <style>
 #app{

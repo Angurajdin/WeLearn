@@ -98,13 +98,7 @@ module.exports = class API {
 
   static async discussion(req, res) {
     try {
-      await Discussion.create({
-        doubtperson: API.currentUserData.emailID,
-        question: req.body.question,
-        topic: req.body.topic,
-        posteddate: req.body.posteddate,
-        answers: [],
-      });
+      await Discussion.create(req.body);
       res.status(200).json({ success: true });
     } catch (err) {
       console.log(err);
@@ -134,13 +128,11 @@ module.exports = class API {
 
   static async submitAnswer(req, res) {
     try {
-      console.log("answer be = ", req.body);
-      console.log(API.currentUserData.emailID);
       await Discussion.updateOne(
-        { doubtperson: API.currentUserData.emailID },
+        { id: req.body.id },
         {
           $set: {
-            answers: req.body,
+            answers: req.body.data,
           },
         }
       );
