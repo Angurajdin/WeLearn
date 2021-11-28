@@ -3,36 +3,36 @@ const Meeting = require("../models/meeting");
 const Discussion = require("../models/discussion");
 
 module.exports = class API {
+  currentUserData = null;
+
   static async login(req, res) {
-    console.log(req.body?.emailID);
     try {
       User.find({ emailID: req.body?.emailID })
         .then((currentUser) => {
-          console.log(currentUser);
           if (currentUser !== []) {
-            console.log(currentUser[0].password, req.body.password);
             if (currentUser[0].password === req.body.password) {
               // console.log("Password match")
+              API.currentUserData = currentUser[0];
               return res
                 .status(200)
                 .json({ success: true, currentUser: currentUser });
               //return res.status(200).json({ currentUser: currentUser, message: "successfully"});
             } else {
-              console.log("password mismatch");
+              // console.log("password mismatch");
               return res.status(200).json({
                 success: false,
                 message: "Invalid EmailID or Password",
               });
             }
           } else {
-            console.log("Email mismatch");
+            // console.log("Email mismatch");
             return res
               .status(200)
               .json({ success: false, message: "Invalid EmailID or Password" });
           }
         })
         .catch((e) => {
-          console.log("Email mismatch");
+          console.log(e);
           return res
             .status(200)
             .json({ success: false, message: "Invalid EmailID" });
@@ -98,10 +98,16 @@ module.exports = class API {
 
   static async discussion(req, res) {
     try {
-      console.log(req.body);
-      await Discussion.create(req.body);
+      await Discussion.create({
+        doubtperson: API.currentUserData.emailID,
+        question: req.body.question,
+        topic: req.body.topic,
+        posteddate: req.body.posteddate,
+        answers: [],
+      });
       res.status(200).json({ success: true });
     } catch (err) {
+      console.log(err);
       res.status(200).json({
         success: false,
         message: "error on inserting",
@@ -114,13 +120,38 @@ module.exports = class API {
     try {
       await Discussion.find({
         topic: req.body.topic,
-      }).then((data) => {
-        res.status(200).json({ success: true, data: data });
-      });
+      })
+        .sort({ posteddate: 1 })
+        .then((data) => {
+          res.status(200).json({ success: true, data: data });
+        });
     } catch (err) {
       res
         .status(200)
         .json({ success: false, message: "error on getting data" });
+    }
+  }
+
+  static async submitAnswer(req, res) {
+    try {
+      console.log("answer be = ", req.body);
+      console.log(API.currentUserData.emailID);
+      await Discussion.updateOne(
+        { doubtperson: API.currentUserData.emailID },
+        {
+          $set: {
+            answers: req.body,
+          },
+        }
+      );
+      res.status(200).json({ success: true });
+    } catch (err) {
+      console.log(err);
+      res.status(200).json({
+        success: false,
+        message: "error on inserting",
+        error: err.message,
+      });
     }
   }
 };
