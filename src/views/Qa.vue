@@ -139,14 +139,13 @@
 </template>
 
 <script>
-import { defineComponent, ref, inject } from "vue";
+import { defineComponent, ref } from "vue";
 import api from "../connections/api";
 import moment from "moment";
 
 export default defineComponent({
   props: ["course", "topic"],
   setup(props) {
-    const store = inject("store");
     let data = ref([]);
     let title = props.topic;
     let question = ref("");
@@ -158,7 +157,7 @@ export default defineComponent({
         question: question.value,
         topic: title,
         posteddate: date,
-        doubtperson: store.userData.emailID,
+        doubtperson: "",
         answers: [],
       });
       if (res.success) {
@@ -169,18 +168,12 @@ export default defineComponent({
     };
 
     const submitAnswer = async (index) => {
-      console.log(data.value[index]._id);
-
-      const res = await api.submitAnswer({
-        id: data.value[index]._id,
-        data: [
-          {
-            answer: answers.value[index],
-            answerPerson: store.userData.emailID,
-          },
-          ...data.value[index].answers,
-        ],
-      });
+      const res = await api.submitAnswer([
+        {
+          answer: answers.value[index],
+        },
+        ...data.value[index].answers,
+      ]);
       if (res.success) {
         alert("Answer added sucessfully");
         getQuestions();

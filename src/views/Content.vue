@@ -14,12 +14,7 @@
         color="white"
         label="Save content"
       />
-      <q-btn
-      unelevated
-      icon="home"
-      to="/"
-      
-      />
+      <q-btn unelevated icon="home" to="/" />
       <q-toolbar>
         <q-toolbar-title style="text-align: center">
           {{ $route.params.course }}
@@ -96,7 +91,6 @@
 
             <q-separator />
           </q-list>
-          
         </div>
       </div>
       <div v-else class="booklist">
@@ -127,23 +121,27 @@
         <center>
           <div class="loading" v-if="loadState == 'loading'"></div>
           <div v-if="books.length > 1">
-            
             <div v-for="i in books" :key="i.id">
-            <a style="text-decoration:none; color: black" :href="i.volumeInfo.previewLink" target="_blank">
-              <q-card class="my-card" style="max-width: 200px">
-                <img :src="i.volumeInfo.imageLinks?.smallThumbnail" />
+              <a
+                style="text-decoration: none; color: black"
+                :href="i.volumeInfo.previewLink"
+                target="_blank"
+              >
+                <q-card class="my-card" style="max-width: 200px">
+                  <img :src="i.volumeInfo.imageLinks?.smallThumbnail" />
 
-                <q-card-section>
-                  <div class="text-subtitle2">{{ i.volumeInfo.title }}</div>
-                  <div class="text-subtitle1">{{ i.volumeInfo.subtitle }}</div>
-                  
-                </q-card-section>
-                
-                <!-- <q-card-section class="q-pt-none">
+                  <q-card-section>
+                    <div class="text-subtitle2">{{ i.volumeInfo.title }}</div>
+                    <div class="text-subtitle1">
+                      {{ i.volumeInfo.subtitle }}
+                    </div>
+                  </q-card-section>
+
+                  <!-- <q-card-section class="q-pt-none">
                   {{ i.volumeInfo.description.substring(0, 33) + "..." }}
                 </q-card-section> -->
-              </q-card>
-             </a>
+                </q-card>
+              </a>
               <br />
             </div>
           </div>
@@ -153,17 +151,32 @@
 
     <q-page-container>
       <div v-if="viewvideo">
-      <center>
-      <iframe id="ytplayer" type="text/html" width="1060" height="620"
-  src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://example.com"
-  frameborder="0"></iframe>
-  </center>
-  </div>
-  <div v-else>
-
-  <iframe frameborder="0" scrolling="no" style="border:0px"  src="https://books.google.co.in/books?id=QZtS4M835HgC&lpg=PA1&dq=intitle%3AJavaScript&as_brr=5&pg=PA1&output=embed" width=500 height=500></iframe>
-       </div>
-       </q-page-container>
+        <center>
+          <iframe
+            id="ytplayer"
+            type="text/html"
+            width="1060"
+            height="620"
+            src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://example.com"
+            frameborder="0"
+          ></iframe>
+        </center>
+      </div>
+      <div v-else>
+        <center>
+          <iframe
+            frameborder="0"
+            scrolling="no"
+            style="border: 0px;modal: true,
+        resizable: false,
+        autoResize: false,"
+            src="https://books.google.co.in/books?id=QZtS4M835HgC&lpg=PA1&dq=intitle%3AJavaScript&as_brr=5&pg=PA1&output=embed"
+            width="1060"
+            height="620"
+          ></iframe>
+        </center>
+      </div>
+    </q-page-container>
   </q-layout>
 </template>
 
@@ -222,7 +235,6 @@ export default defineComponent({
     };
 
     search();
-    
 
     return {
       books,

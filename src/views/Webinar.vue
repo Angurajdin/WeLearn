@@ -152,7 +152,9 @@
       </template>
       <strong>{{i.link}}</strong>
       <template v-slot:action>
-        <q-btn flat color="primary" @click="showlink = false" icon="content_copy" label="Copy link" />
+         <q-btn flat color="black" @click="showlink = false" :href="i.link" icon="login"  >
+          <a style="text-decoration:none;color:black;margin-left:10px;" :href="i.link">join Meeting</a>
+        </q-btn>
       </template>
     </q-banner>
            
