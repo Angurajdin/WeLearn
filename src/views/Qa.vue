@@ -58,94 +58,104 @@
 
   <!-- Card -->
 
-  <q-card
-    v-for="(i, index) in data"
-    :key="i['id']"
-    class="my-card question"
-    style="max-width: 1300px"
-  >
-    <q-card-section>
-      <div class="left">
-        <p style="font-size: 22px; font-weight: 400; margin: 10px 20px">
-          {{ i["question"] }}
-        </p>
-        <div v-if="i['answers'].length > 0">
-          <p style="margin: 10px 20px">{{ i["answers"] }}</p>
-        </div>
-      </div>
-      <div class="contain">
-        <div class="answerdetails">
-          <q-input
-            style="max-width: 90%; margin: 0px 0px 30px"
-            rounded
-            outlined
-            v-model="answers[index]"
-            label="Enter your answer here"
-          />
-        </div>
-        <div class="enter">
-          <q-btn
-            style="padding: 15px 30px"
-            push
-            color="primary"
-            label=" Submit"
-            @click="submitAnswer(index)"
-          />
-        </div>
-        <div class="totalans">
-          <p
-            style="
-              font-weight: 600;
-              font-size: 18px;
-              text-align: center;
-              margin: 3px;
-            "
-          >
-            No of answers {{ i["answers"].length }}
+  <div v-if="data.length > 0">
+    <q-card
+      v-for="(i, index) in data"
+      :key="i['id']"
+      class="my-card question"
+      style="max-width: 1300px"
+    >
+      <q-card-section>
+        <div class="left">
+          <p style="font-size: 22px; font-weight: 400; margin: 10px 20px">
+            {{ i["question"] }}
           </p>
+          <div v-if="i['correctAnswers'].length > 0">
+            <p style="margin: 10px 20px">{{ i["answers"] }}</p>
+          </div>
         </div>
-      </div>
-      Posten on &nbsp; {{ i["posteddate"] }} <br /><br />
+        <div class="contain">
+          <div v-if="store.userData.emailID != i['doubtperson']">
+            <div class="answerdetails">
+              <q-input
+                style="max-width: 90%; margin: 0px 0px 30px"
+                rounded
+                outlined
+                v-model="answers[index]"
+                label="Enter your answer here"
+              />
+            </div>
+            <div class="enter">
+              <q-btn
+                style="padding: 15px 30px"
+                push
+                color="primary"
+                label=" Submit"
+                @click="submitAnswer(index)"
+              />
+            </div>
+          </div>
+          <div class="totalans">
+            <p
+              style="
+                font-weight: 600;
+                font-size: 18px;
+                text-align: center;
+                margin: 3px;
+              "
+            >
+              No of answers {{ i["answers"].length }}
+            </p>
+          </div>
+        </div>
+        Posten on &nbsp; {{ i["posteddate"] }} <br /><br />
 
-      <!--  total answers list-->
+        <!--  total answers list-->
 
-      <q-expansion-item
-        expand-icon-toggle
-        expand-separator
-        icon="question_answer"
-        label="Total answers"
-      >
-        <q-card>
-          <q-card-section>
-            <!-- list -->
-            <q-banner inline-actions rounded class="bg-white text-black">
-              Answer 1
+        <q-expansion-item
+          expand-icon-toggle
+          expand-separator
+          icon="question_answer"
+          label="Total answers"
+        >
+          <q-card>
+            <q-card-section>
+              <!-- list -->
+              <q-banner inline-actions rounded class="bg-white text-black">
+                Answer 1
 
-              <template v-slot:action>
-                <q-btn
-                  flat
-                  icon="task_alt"
-                  color="green"
-                  label="Mark as correct"
-                />
-                <q-seperator />
-              </template>
-            </q-banner>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
-    </q-card-section>
-  </q-card>
+                <template v-slot:action>
+                  <div v-if="store.userData.emailID == i['doubtperson']">
+                    <q-btn
+                      flat
+                      icon="task_alt"
+                      color="green"
+                      label="Mark as correct"
+                    />
+                    <q-seperator />
+                  </div>
+                </template>
+              </q-banner>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
+      </q-card-section>
+    </q-card>
+  </div>
+  <div v-else>
+    <h1>No questions in this Discussions</h1>
+  </div>
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, inject } from "vue";
 import api from "../connections/api";
 import moment from "moment";
 
 export default defineComponent({
   props: ["course", "topic"],
   setup(props) {
+    const store = inject("store");
     let data = ref([]);
     let title = props.topic;
     let question = ref("");
@@ -157,8 +167,9 @@ export default defineComponent({
         question: question.value,
         topic: title,
         posteddate: date,
-        doubtperson: "",
+        doubtperson: store.userData.emailID,
         answers: [],
+        correctAnswers: [],
       });
       if (res.success) {
         console.log("question posted");
@@ -168,14 +179,20 @@ export default defineComponent({
     };
 
     const submitAnswer = async (index) => {
-      const res = await api.submitAnswer([
-        {
-          answer: answers.value[index],
-        },
-        ...data.value[index].answers,
-      ]);
+      const res = await api.submitAnswer({
+        id: data.value[index]._id,
+        data: [
+          {
+            answer: answers.value[index],
+            answeredPerson: store.userData.emailID,
+            dateTime: date,
+          },
+          ...data.value[index].answers,
+        ],
+      });
       if (res.success) {
         alert("Answer added sucessfully");
+        answers.value[index] = "";
         getQuestions();
       }
     };
@@ -202,7 +219,16 @@ export default defineComponent({
     getQuestions();
     let form = ref(false);
 
-    return { submitAnswer, answers, question, form, title, postquestion, data };
+    return {
+      store,
+      submitAnswer,
+      answers,
+      question,
+      form,
+      title,
+      postquestion,
+      data,
+    };
   },
 });
 </script>

@@ -129,7 +129,7 @@ module.exports = class API {
   static async submitAnswer(req, res) {
     try {
       await Discussion.updateOne(
-        { id: req.body.id },
+        { _id: req.body.id },
         {
           $set: {
             answers: req.body.data,

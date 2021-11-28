@@ -342,8 +342,8 @@ export default defineComponent({
     };
 
     const logout = () => {
-      currentUser.value = null;
       store.userData = {};
+      router.push("/");
     };
 
     return {
