@@ -9,4 +9,5 @@ router.post('/meeting',  API.meeting)
 router.get('/meeting',  API.getMeeting)
 router.post("/getQuestions", API.getQuestions);
 router.post('/discussion', API.discussion)
+router.post("/submitAnswer", API.submitAnswer);
 module.exports = router;

@@ -1,4 +1,4 @@
-/* <template>
+<template>
   <center>
     <div
       class="
@@ -16,7 +16,7 @@
     >
       <div class="example-cell col-4" tabindex="0">
         <h4 style="color: white">
-           {{ title }}
+          {{ title }}
         </h4>
       </div>
       <div class="example-cell" tabindex="0">
@@ -58,20 +58,20 @@
 
   <!-- Card -->
 
-  <q-card  v-for="i in data" :key="i.id" class="my-card question" style="max-width: 1300px">
+  <q-card
+    v-for="(i, index) in data"
+    :key="i['id']"
+    class="my-card question"
+    style="max-width: 1300px"
+  >
     <q-card-section>
       <div class="left">
-        <p
-          style="
-            font-size: 22px;
-            
-            font-weight: 400;
-            margin: 10px 20px;
-          "
-        >
-          {{i.question}}
+        <p style="font-size: 22px; font-weight: 400; margin: 10px 20px">
+          {{ i["question"] }}
         </p>
-        <p style="margin: 10px 20px">{{i.answers}}</p>
+        <div v-if="i['answers'].length > 0">
+          <p style="margin: 10px 20px">{{ i["answers"] }}</p>
+        </div>
       </div>
       <div class="contain">
         <div class="answerdetails">
@@ -79,7 +79,7 @@
             style="max-width: 90%; margin: 0px 0px 30px"
             rounded
             outlined
-            v-model="text"
+            v-model="answers[index]"
             label="Enter your answer here"
           />
         </div>
@@ -88,7 +88,8 @@
             style="padding: 15px 30px"
             push
             color="primary"
-            label=" Submit "
+            label=" Submit"
+            @click="submitAnswer(index)"
           />
         </div>
         <div class="totalans">
@@ -100,56 +101,56 @@
               margin: 3px;
             "
           >
-            No of answers
+            No of answers {{ i["answers"].length }}
           </p>
         </div>
       </div>
-      Posten on &nbsp;  {{ i.posteddate }} <br><br>
- 
+      Posten on &nbsp; {{ i["posteddate"] }} <br /><br />
 
- <!--  total answers list-->
+      <!--  total answers list-->
 
       <q-expansion-item
         expand-icon-toggle
         expand-separator
         icon="question_answer"
         label="Total answers"
-         
       >
         <q-card>
           <q-card-section>
-             <!-- list -->
-              <q-banner inline-actions rounded class="bg-white text-black">
-      Answer 1
+            <!-- list -->
+            <q-banner inline-actions rounded class="bg-white text-black">
+              Answer 1
 
-      <template v-slot:action>
-       
-        <q-btn flat icon="task_alt" color="green" label="Mark as correct" />
-        <q-seperator/>
+              <template v-slot:action>
+                <q-btn
+                  flat
+                  icon="task_alt"
+                  color="green"
+                  label="Mark as correct"
+                />
+                <q-seperator />
               </template>
-    </q-banner>
+            </q-banner>
           </q-card-section>
         </q-card>
       </q-expansion-item>
     </q-card-section>
-   
   </q-card>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
 import api from "../connections/api";
-import moment from 'moment'
+import moment from "moment";
 
 export default defineComponent({
-  props: ["course","topic"],
+  props: ["course", "topic"],
   setup(props) {
     let data = ref([]);
     let title = props.topic;
     let question = ref("");
-    let answer = ref([]);
+    let answers = ref([]);
     const date = moment().format("MMM Do YY");
-    /* let currentUser = currentUser.value */
 
     const postquestion = async () => {
       const res = await api.discussion({
@@ -159,8 +160,24 @@ export default defineComponent({
         doubtperson: "",
         answers: [],
       });
-      if (res.success)
-        console.log("question posted"), alert("Question posted sucessfully");
+      if (res.success) {
+        console.log("question posted");
+        alert("Question posted sucessfully");
+        getQuestions();
+      }
+    };
+
+    const submitAnswer = async (index) => {
+      const res = await api.submitAnswer([
+        {
+          answer: answers.value[index],
+        },
+        ...data.value[index].answers,
+      ]);
+      if (res.success) {
+        alert("Answer added sucessfully");
+        getQuestions();
+      }
     };
 
     const getQuestions = async () => {
@@ -169,8 +186,11 @@ export default defineComponent({
           topic: title,
         });
         if (questions.success) {
-          console.log(questions.data);
           data.value = questions.data;
+          for (let i = 0; i < data.value.length; i++) {
+            answers.value.push("");
+          }
+          console.log("answers = ", answers.value);
         } else {
           console.log("error in retrieving data");
         }
@@ -180,11 +200,9 @@ export default defineComponent({
     };
 
     getQuestions();
-
-     
     let form = ref(false);
 
-    return { question, form, title, postquestion ,data};
+    return { submitAnswer, answers, question, form, title, postquestion, data };
   },
 });
 </script>
@@ -234,5 +252,3 @@ export default defineComponent({
   margin-top: 40px;
 }
 </style>
-
- */

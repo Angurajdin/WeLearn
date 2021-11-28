@@ -244,7 +244,6 @@ export default defineComponent({
     let signupEmail = ref('');
     let signupPassword = ref('');
     let loginEmail = ref('');
-/*     let dob = ref(' ') */
     let loginPassword = ref('');
     let signupMobile = ref('');
     let signupUsername = ref('');
@@ -298,7 +297,6 @@ export default defineComponent({
           emailID: loginEmail.value,
           password: loginPassword.value
         });
-        console.log(res);
         if(res.success){
           currentUser.value = res.currentUser
           login.value = false;
@@ -315,13 +313,11 @@ export default defineComponent({
 
     }
 
-    
-
     const logout = ()=>{
       currentUser.value = null;
     }
 
-    return { logout, currentUser, /* dob */ tab, search,searchvalue, error, onLogin,onSignup,login, isPwd, signup, signupEmail, signupPassword, loginPassword, signupUsername, loginEmail, signupMobile };
+    return { logout, currentUser, tab, search,searchvalue, error, onLogin,onSignup,login, isPwd, signup, signupEmail, signupPassword, loginPassword, signupUsername, loginEmail, signupMobile };
   },
 });
 </script>

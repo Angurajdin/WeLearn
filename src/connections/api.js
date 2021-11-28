@@ -31,4 +31,10 @@ export default class API {
     const res = await axios.post(url + "/getQuestions", data);
     return res.data;
   }
+
+  static async submitAnswer(data) {
+    const res = await axios.post(url + "/submitAnswer", data);
+    return res.data;
+  }
+
 }
