@@ -169,7 +169,8 @@ export default defineComponent({
     };
 
     const submitAnswer = async (index) => {
-      
+      console.log(data.value[index]._id);
+
       const res = await api.submitAnswer({
         id: data.value[index]._id,
         data: [

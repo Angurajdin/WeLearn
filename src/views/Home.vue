@@ -23,14 +23,10 @@
                 type="text"
                 placeholder="search course"
               />
-<<<<<<< HEAD
               <router-link
                 style="text-decoration: none"
                 :to="{ name: 'Content', params: { course: search } }"
               >
-=======
-              <router-link  style="text-decoration:none ;" :to="{name: 'Content', params:{course : search  }}">
->>>>>>> dc06d5e77e15217e923fc1d7706ca7b79daeb6f6
                 <q-btn
                   type="submit"
                   flat
@@ -40,7 +36,13 @@
                 />
               </router-link>
             </div>
-            <div v-if="currentUser == null">
+            <div
+              v-if="
+                store.userData &&
+                Object.keys(store.userData).length === 0 &&
+                Object.getPrototypeOf(store.userData) === Object.prototype
+              "
+            >
               <q-btn
                 flat
                 style="color: #ffffff"
@@ -341,9 +343,11 @@ export default defineComponent({
 
     const logout = () => {
       currentUser.value = null;
+      store.userData = {};
     };
 
     return {
+      store,
       logout,
       currentUser,
       tab,
