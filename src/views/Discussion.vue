@@ -13,7 +13,7 @@
 
       <q-card-section class="q-pt-none">
         <center>
-            <router-link  :to="{name: 'Qa', params:{topic : Java }}">
+            <router-link  style="text-decoration:none" :to="{name: 'Qa', params:{topic : Java }}">
           <q-btn
             class="rounded"
             rounded
@@ -35,12 +35,13 @@
 
       <q-card-section class="q-pt-none">
         <center>
-          <router-link :to="{name: 'Qa', params:{topic : React  }}">
+          <router-link style="text-decoration:none" :to="{name: 'Qa', params:{topic : React  }}">
           <q-btn
             class="rounded"
             rounded
             color="primary"
             label="View discussion"
+             
           />
           </router-link>
         </center>
@@ -77,4 +78,5 @@ h5 {
 .rounded{
   text-decoration: none;
 }
+ 
 </style>

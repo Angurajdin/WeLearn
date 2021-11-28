@@ -152,11 +152,17 @@
     </q-drawer>
 
     <q-page-container>
+      <div v-if="viewvideo">
       <center>
       <iframe id="ytplayer" type="text/html" width="1060" height="620"
   src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://example.com"
   frameborder="0"></iframe>
   </center>
+  </div>
+  <div v-else>
+
+  <iframe frameborder="0" scrolling="no" style="border:0px"  src="https://books.google.co.in/books?id=QZtS4M835HgC&lpg=PA1&dq=intitle%3AJavaScript&as_brr=5&pg=PA1&output=embed" width=500 height=500></iframe>
+       </div>
        </q-page-container>
   </q-layout>
 </template>
@@ -200,12 +206,13 @@ export default defineComponent({
     let orderBy = ref("relevance");
     let maxResults = ref("10");
     let loadState = ref("");
+    let filter = ref("ebooks");
 
     const search = () => {
       loadState.value = "loading";
       axios
         .get(
-          `https://www.googleapis.com/books/v1/volumes?q=intitle:${router.params.course}&orderBy=${orderBy.value}&maxResults=${maxResults.value}&`
+          `https://www.googleapis.com/books/v1/volumes?q=intitle:${router.params.course}&filter=${filter.value}&orderBy=${orderBy.value}&maxResults=${maxResults.value}&`
         )
         .then((response) => {
           console.log(response.data.items);
@@ -220,6 +227,7 @@ export default defineComponent({
     return {
       books,
       keyword,
+      filter,
       orderBy,
       maxResults,
       loadState,
