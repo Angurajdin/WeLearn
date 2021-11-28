@@ -1,6 +1,10 @@
 <template>
   <center>
-    <div
+    <div v-if="store.userData.emailID == null">
+
+    <!--   Not available -->
+    </div>
+    <div v-else
       class="
         row
         title
@@ -77,25 +81,21 @@
         <div class="contain">
           <div v-if="store.userData.emailID != i['doubtperson']">
             <div class="answerdetails">
-              <q-input
-                style="max-width: 90%; margin: 0px 0px 30px"
-                rounded
-                outlined
-                v-model="answers[index]"
-                label="Enter your answer here"
-              />
+              <q-input style="background-color:white ;border: white solid"    standout bottom-slots v-model="answers[index]" label="Your answer"  >
+        <template v-slot:prepend>
+           
+        </template>
+        <template v-slot:append>
+          <q-icon name="send"  @click="submitAnswer(index)" class="cursor-pointer" />
+        </template>
+
+    
+      </q-input>
             </div>
-            <div class="enter">
-              <q-btn
-                style="padding: 15px 30px"
-                push
-                color="primary"
-                label=" Submit"
-                @click="submitAnswer(index)"
-              />
-            </div>
+             
           </div>
           <div class="totalans">
+            <br>
             <p
               style="
                 font-weight: 600;
@@ -121,8 +121,10 @@
           <q-card>
             <q-card-section>
               <!-- list -->
-              <q-banner inline-actions rounded class="bg-white text-black">
-                Answer 1
+              <q-banner v-for="i in data" :key="i.id" inline-actions rounded class="bg-white text-black">
+                <p>{{i.answers}}</p>
+                <p>{{i.answers}}</p> <!-- person -->
+                <p>{{i.answers}}</p>  <!-- date -->
 
                 <template v-slot:action>
                   <div v-if="store.userData.emailID == i['doubtperson']">
@@ -143,7 +145,7 @@
     </q-card>
   </div>
   <div v-else>
-    <h1>No questions in this Discussions</h1>
+    <p  style="color: white; font-weight: 660; margin: 20px; text-align: center">No questions in this Discussions</p>
   </div>
 </template>
 

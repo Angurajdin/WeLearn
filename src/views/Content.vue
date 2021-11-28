@@ -1,132 +1,69 @@
-<template>
-  <!-- Main tab -->
-  <q-layout view="lhh lpR fFf">
-    <q-header
-      elevated
-      class="bg-light-blue-5 text-white"
-      style="height: 72px"
-      height-hint="98"
-    >
-      <q-btn
-        outline
-        style="position: fixed; right: 30px; margin: 30px"
-        rounded
-        color="white"
-        label="Save content"
-      />
-      <q-btn unelevated icon="home" to="/" />
+ 
+  <template>
+  <q-layout  view="hHh lpR fFf">
+
+    <q-header style="height:60px"  lass="bg-primary  text-white">
+      
       <q-toolbar>
-        <q-toolbar-title style="text-align: center">
-          {{ $route.params.course }}
+        <q-toolbar-title >
+           
+        <strong>  {{ $route.params.course }} </strong>
         </q-toolbar-title>
+           <q-btn to="/" flat round dense icon="home" />
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-      <div class="q-gutter-y-md" style="max-width: 400px">
+    <q-page-container>
+  
+<!-- tabs -->
+       <q-card>
         <q-tabs
           v-model="tab"
+          dense
+          class="text-grey"
+          active-color="primary"
           indicator-color="primary"
-          class="bg-white text-primary"
+          align="justify"
+          narrow-indicator
         >
-          <q-tab
-            name="Video"
-            @click="viewVideoTrue"
-            icon="smart_display"
-            label="Video"
-          />
-          <q-tab name="Book" @click="book" icon="auto_stories" label="Book" />
+          <q-tab name="Video" label="Video" icon="smart_display" />
+          <q-tab name="Book"  icon="auto_stories" label="Book" />
+           
         </q-tabs>
-      </div>
-      <!-- content_drawer -->
 
-      <div v-if="viewvideo" class="videolist">
-        <h6
-          style="
-            text-align: left;
-            margin: 25px 20px;
-            font-weight: 600;
-            letter-spacing: 0.52px;
-          "
-        >
-          <i class="fas fa-list"></i> Playlist title
-        </h6>
-        <div class="q-pa-md" style="max-width: 350px">
-          <q-list bordered class="rounded-borders">
-            <q-expansion-item>
-              <template v-slot:header>
-                <q-item-section avatar>
-                  <q-avatar
-                    icon="smart_display"
-                    color="primary"
-                    text-color="white"
-                  />
-                </q-item-section>
+        <q-separator />
 
-                <q-item-section> title </q-item-section>
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel name="Video">
+            <div class="text-h6">Video results</div>
+            <div v-for="v in videos" :key="v.id" class="ytcard">
+            <div class="q-pa-md">
+               {{v.id.videoId}}
+            </div>
+            </div>
+          </q-tab-panel>
 
-                <q-item-section side> </q-item-section>
-              </template>
-
-              <q-card>
-                <q-card-section>
-                  <q-list bordered padding class="rounded-borders text-primary">
-                    <q-item
-                      clickable
-                      v-ripple
-                      :active="link === 'video'"
-                      @click="link = 'video'"
-                      active-class="my-menu-link"
-                    >
-                      <q-item-section avatar>
-                        <q-icon name="play_arrow" />
-                      </q-item-section>
-
-                      <q-item-section>Video 1</q-item-section>
-                    </q-item>
-                  </q-list>
-                </q-card-section>
-              </q-card>
-            </q-expansion-item>
-
-            <q-separator />
-          </q-list>
-        </div>
-      </div>
-      <div v-else class="booklist">
-        <br />
-
-        <!-- filters & search -->
-        <form @submit.prevent="search">
-          <!-- <div>
-            <input
-              type="text"
-              v-model="keyword"
-              placeholder="Search..."
-              class="input"
-              required
-            />
-            <input type="submit" value="Search" class="button" />
-          </div> -->
-          <div>
+          <q-tab-panel name="Book">
+            <div class="text-h6">Book results</div>
+             <div>
             <label for="order">Order by</label>&nbsp;
             <select name="order" v-model="orderBy" @change="search">
               <option value="newest">newest</option>
               <option value="relevance">relevance</option>
             </select>
           </div>
-        </form>
+         
         <br />
-        <!-- CARD FOR DISPLAY -->
-        <center>
-          <div class="loading" v-if="loadState == 'loading'"></div>
+        <!-- book CARD FOR DISPLAY -->
+        
+         <!--  <div class="loading" v-if="loadState == 'loading'"></div>
           <div v-if="books.length > 1">
             <div v-for="i in books" :key="i.id">
-              <!-- <a
+              <a
                 style="text-decoration: none; color: black"
                 :href="i.volumeInfo.previewLink"
-                target="_blank"
-              > -->
+                target="_blank">
+               
 
               <q-card clickable class="my-card" style="max-width: 200px">
                 <img :src="i.volumeInfo.imageLinks?.smallThumbnail" />
@@ -136,85 +73,79 @@
                   <div class="text-subtitle1">
                     {{ i.volumeInfo.subtitle }}
                   </div>
-                </q-card-section>
-
-                <button @click="viewBook">View Book</button>
+                </q-card-section>               
                 <br />
-
-                <!-- <q-card-section class="q-pt-none">
-                  {{ i.volumeInfo.description.substring(0, 33) + "..." }}
-                </q-card-section> -->
+                
               </q-card>
-
-              <!-- </a> -->
+ </a> 
               <br />
             </div>
-          </div>
-        </center>
-      </div>
-    </q-drawer>
+          </div> -->
 
-    <q-page-container>
-      <div v-if="viewvideo">
-        <center>
-          <iframe
-            id="ytplayer"
-            type="text/html"
-            width="1060"
-            height="620"
-            src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://example.com"
-            frameborder="0"
-          ></iframe>
-        </center>
+  <div class="loading" v-if="loadState == 'loading'"></div>
+   <div v-if="books.length > 1">
+
+ <div class="container">
+  <div v-for="i in books" :key="i.id" class="card">
+     <a
+                style="text-decoration: none; color: black"
+                :href="i.volumeInfo.previewLink"
+                target="_blank">
+    <div class="card-header">
+      <img :src="i.volumeInfo.imageLinks?.thumbnail" alt="" />
+    </div>
+    <div class="card-body">
+      <span class="tag tag-teal"> Total pages- {{ i.volumeInfo.pageCount }}</span>
+      <h4>
+       {{ i.volumeInfo.title }}
+      </h4>
+      
+      <div class="user">
+        <img :src="i.volumeInfo.imageLinks?.thumbnail"  alt="user" />
+        <div class="user-info">
+          <h5>{{ i.volumeInfo.authors}}</h5>
+          
+        </div>
       </div>
-      <div v-else>
-        <center>
-          <iframe
-            frameborder="0"
-            scrolling="no"
-            style="border: 0px;modal: true,
-            resizable: false,
-            autoResize: false,"
-            :src="bookLink"
-            width="1060"
-            height="620"
-            :alt="pic"
-          ></iframe>
-        </center>
-      </div>
+    </div>
+ </a>
+  </div>
+ 
+ </div>
+ </div>
+        
+      
+    
+
+          </q-tab-panel>
+
+           
+        </q-tab-panels>
+      </q-card>
     </q-page-container>
+
   </q-layout>
 </template>
+ 
 
 <script>
 import { ref, defineComponent } from "vue";
-
 import axios from "axios";
 import { useRoute } from "vue-router";
 
 export default defineComponent({
-  components: {},
-  props: ["courseName"],
-  setup(props) {
-    let leftDrawerOpen = ref("True");
-    let viewvideo = ref("true");
-    let link = ref("video");
+   props: ["courseName"],
+setup(props){
+  let tab = ref('Video')
+   let link = ref("video");
     const videos = ref(null);
     const router = useRoute();
     const bookLink = ref(null);
     let courseName = router.params.course;
 
-    const viewBook = () => {
-      bookLink.value = bookLinkPreview;
-      console.log(bookLink.value);
-    };
+  //Youtube API 
 
-    const book = () => {
-      viewvideo.value = false;
-    };
-    const viewVideoTrue = () => (viewvideo.value = true);
-
-    const getVideos = async () => {
+  const getVideos = async () => {
       videos.value = await axios.get(
         "https://www.googleapis.com/youtube/v3/search?key=AIzaSyDVv7hLhb3r8YQ5wDLjUc10f2Dm4OECHTY&type=video&part=snippet&maxResults=5&q=" +
           courseName
@@ -224,8 +155,9 @@ export default defineComponent({
     };
 
     // if (videos.value == null) getVideos();
-
-    /* **** BOok API **** */
+  
+  // Book api
+   /* **** BOok API **** */
     let books = ref([]);
     let keyword = router.params.course;
     let orderBy = ref("relevance");
@@ -248,9 +180,11 @@ export default defineComponent({
 
     search();
 
-    return {
-      books,
+
+
+  return {tab, books,
       bookLink,
+       
       keyword,
       filter,
       orderBy,
@@ -258,12 +192,99 @@ export default defineComponent({
       loadState,
       search,
       videos,
-      leftDrawerOpen,
-      viewvideo,
-      book,
+      
+       
+       
       link,
-      viewVideoTrue,
-    };
-  },
-});
+      
+  }
+  }
+})
 </script>
+
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+* {
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-color: #f7f8fc;
+  font-family: "Roboto", sans-serif;
+  color: #10182f;
+}
+.container {
+  display: flex;
+  max-width: 1500px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.card {
+  margin:15px;
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  width: 350px;
+  margin-bottom: 100px;
+}
+.card-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px;
+  min-height: 250px;
+}
+
+.tag {
+  background: #cccccc;
+  border-radius: 50px;
+  font-size: 12px;
+  margin: 0;
+  color: #fff;
+  padding: 2px 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.tag-teal {
+  background-color: #000000;
+}
+.tag-purple {
+  background-color: #5e76bf;
+}
+.tag-pink {
+  background-color: #cd5b9f;
+}
+
+.card-body p {
+  font-size: 13px;
+  margin: 0 0 40px;
+}
+.user {
+  display: flex;
+  margin-top: auto;
+}
+
+.user img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+.user-info h5 {
+  margin: 0;
+}
+.user-info small {
+  color: #545d7a;
+}
+
+</style>

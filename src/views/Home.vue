@@ -16,7 +16,7 @@
             />
 
             <div class="searchpair">
-              <q-input
+              <q-select
                 :options="searchvalue"
                 v-model="search"
                 class="search"
@@ -283,6 +283,9 @@ export default defineComponent({
       "Data structures",
       "Machine learning",
       "C++ programming",
+      "Java programming",
+      "DBMS",
+      "Software engineering"
     ];
 
     const onSignup = async () => {
