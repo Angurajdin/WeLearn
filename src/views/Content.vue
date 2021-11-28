@@ -122,26 +122,31 @@
           <div class="loading" v-if="loadState == 'loading'"></div>
           <div v-if="books.length > 1">
             <div v-for="i in books" :key="i.id">
-              <a
+              <!-- <a
                 style="text-decoration: none; color: black"
                 :href="i.volumeInfo.previewLink"
                 target="_blank"
-              >
-                <q-card class="my-card" style="max-width: 200px">
-                  <img :src="i.volumeInfo.imageLinks?.smallThumbnail" />
+              > -->
 
-                  <q-card-section>
-                    <div class="text-subtitle2">{{ i.volumeInfo.title }}</div>
-                    <div class="text-subtitle1">
-                      {{ i.volumeInfo.subtitle }}
-                    </div>
-                  </q-card-section>
+              <q-card clickable class="my-card" style="max-width: 200px">
+                <img :src="i.volumeInfo.imageLinks?.smallThumbnail" />
 
-                  <!-- <q-card-section class="q-pt-none">
+                <q-card-section>
+                  <div class="text-subtitle2">{{ i.volumeInfo.title }}</div>
+                  <div class="text-subtitle1">
+                    {{ i.volumeInfo.subtitle }}
+                  </div>
+                </q-card-section>
+
+                <button @click="viewBook">View Book</button>
+                <br />
+
+                <!-- <q-card-section class="q-pt-none">
                   {{ i.volumeInfo.description.substring(0, 33) + "..." }}
                 </q-card-section> -->
-                </q-card>
-              </a>
+              </q-card>
+
+              <!-- </a> -->
               <br />
             </div>
           </div>
@@ -168,11 +173,12 @@
             frameborder="0"
             scrolling="no"
             style="border: 0px;modal: true,
-        resizable: false,
-        autoResize: false,"
-            src="https://books.google.co.in/books?id=QZtS4M835HgC&lpg=PA1&dq=intitle%3AJavaScript&as_brr=5&pg=PA1&output=embed"
+            resizable: false,
+            autoResize: false,"
+            :src="bookLink"
             width="1060"
             height="620"
+            :alt="pic"
           ></iframe>
         </center>
       </div>
@@ -195,7 +201,13 @@ export default defineComponent({
     let link = ref("video");
     const videos = ref(null);
     const router = useRoute();
+    const bookLink = ref(null);
     let courseName = router.params.course;
+
+    const viewBook = () => {
+      bookLink.value = bookLinkPreview;
+      console.log(bookLink.value);
+    };
 
     const book = () => {
       viewvideo.value = false;
@@ -238,6 +250,7 @@ export default defineComponent({
 
     return {
       books,
+      bookLink,
       keyword,
       filter,
       orderBy,
