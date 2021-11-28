@@ -19,9 +19,9 @@
                 v-model="search"
                 class="search"
                 type="text"
-                placeholder="       search course"
+                placeholder="search course"
               />
-              <router-link style="text-decoration:none" :to="{name: 'Content', params:{course : search  }}">
+              <router-link  style="text-decoration:none ;" :to="{name: 'Content', params:{course : search  }}">
                 <q-btn
                   type="submit"
                   flat
