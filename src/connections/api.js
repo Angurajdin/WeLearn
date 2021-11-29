@@ -37,4 +37,14 @@ export default class API {
     return res.data;
   }
 
+  static async correctAnswer(data) {
+    const res = await axios.post(url + "/correctAnswer", data);
+    return res.data;
+  }
+
+  static async updateProfile(data) {
+    const res = await axios.post(url + "/updateProfile", data);
+    return res.data;
+  }
+
 }

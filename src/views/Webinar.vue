@@ -57,7 +57,6 @@
               dense
               type="date"
               v-model="date"
-               
               autofocus
               @keyup.enter="form = false"
             />
@@ -137,33 +136,37 @@
             <p class="details">
               <i class="fas fa-video"></i><br />{{ i.platform }}
             </p>
-            <button @click="showlink = true " class="details btn-part" >
-              <i class="fas fa-chevron-circle-right" ></i><br />PARTICIPATE
+            <button @click="showlink = true" class="details btn-part">
+              <i class="fas fa-chevron-circle-right"></i><br />PARTICIPATE
             </button>
-             
           </q-card-section>
         </q-card-section>
 
         <div v-if="showlink">
-             
-               <q-banner class="bg-grey-3  " style="border-radius:44px">
-      <template v-slot:avatar>
-        <q-icon name="link" color="primary" />
-      </template>
-      <strong>{{i.link}}</strong>
-      <template v-slot:action>
-         <q-btn flat color="black" @click="showlink = false" :href="i.link" icon="login"  >
-          <a style="text-decoration:none;color:black;margin-left:10px;" :href="i.link">join Meeting</a>
-        </q-btn>
-      </template>
-    </q-banner>
-           
-         
-
+          <q-banner class="bg-grey-3" style="border-radius: 44px">
+            <template v-slot:avatar>
+              <q-icon name="link" color="primary" />
+            </template>
+            <strong>{{ i.link }}</strong>
+            <template v-slot:action>
+              <q-btn
+                flat
+                color="black"
+                @click="showlink = false"
+                :href="i.link"
+                icon="login"
+              >
+                <a
+                  style="text-decoration: none; color: black; margin-left: 10px"
+                  :href="i.link"
+                  >join Meeting</a
+                >
+              </q-btn>
+            </template>
+          </q-banner>
         </div>
       </q-card>
       <!-- copy link -->
-       
     </div>
   </div>
   <br />
@@ -177,7 +180,6 @@ import { useRoute } from "vue-router";
 
 export default defineComponent({
   setup() {
-     
     let form = ref(false);
     let title = ref("");
     let conductedby = ref("");
@@ -189,11 +191,7 @@ export default defineComponent({
     let link = ref("");
     const data = ref([]);
     const router = useRoute();
-    let showlink = ref(false)
-   
-
-
-    
+    let showlink = ref(false);
 
     const getMeetings = async () => {
       try {
@@ -229,17 +227,17 @@ export default defineComponent({
       } else error.value = res.message;
     };
 
-//Copy clipboard
+    //Copy clipboard
 
-    const copy = () =>{
-      try{
-        navigator.clipboard.writeText(link)
-      }catch(e){
-        throw e
+    const copy = () => {
+      try {
+        navigator.clipboard.writeText(link);
+      } catch (e) {
+        throw e;
       }
-    }
+    };
 
-// past date disable
+    // past date disable
 
     /* NODEMAILER 
         const joinMeeting = async() => {
@@ -268,7 +266,7 @@ export default defineComponent({
     return {
       /* joinMeeting, nodemailer, transporter, info, */ data,
       copy,
-       
+
       onSubmit,
       form,
       title,
@@ -279,7 +277,7 @@ export default defineComponent({
       link,
       duration,
       platform,
-      showlink
+      showlink,
     };
   },
 });
@@ -366,5 +364,4 @@ h5 {
   -webkit-backdrop-filter: blur(30px);
   width: 600px;
 }
- 
 </style> */

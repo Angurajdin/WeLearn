@@ -146,4 +146,39 @@ module.exports = class API {
       });
     }
   }
+
+  static async correctAnswer(req, res) {
+    try {
+      await Discussion.updateOne(
+        { _id: req.body.id },
+        {
+          $set: {
+            correctAnswers: req.body.data,
+          },
+        }
+      );
+      res.status(200).json({ success: true });
+    } catch (err) {
+      console.log(err);
+      res.status(200).json({
+        success: false,
+        message: "error on inserting",
+        error: err.message,
+      });
+    }
+  }
+
+  static async updateProfile(req, res) {
+    try {
+      await User.updateOne({ emailID: req.body.emailID }, req.body.data).then(
+        (data) => {
+          res.status(200).json({ success: true, data: data });
+        }
+      );
+    } catch (err) {
+      res
+        .status(200)
+        .json({ success: false, message: "error on getting data" });
+    }
+  }
 };

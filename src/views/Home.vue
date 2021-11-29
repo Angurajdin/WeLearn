@@ -285,7 +285,7 @@ export default defineComponent({
       "C++ programming",
       "Java programming",
       "DBMS",
-      "Software engineering"
+      "Software engineering",
     ];
 
     const onSignup = async () => {
@@ -307,7 +307,9 @@ export default defineComponent({
             emailID: signupEmail.value,
             password: signupPassword.value,
             mobile: signupMobile.value,
-            /*  dob : dob.value */
+            githubLink: "",
+            bio: "",
+            gender: "",
           });
           if (res.success) {
             currentUser.value = res.currentUser;

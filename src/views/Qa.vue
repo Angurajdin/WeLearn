@@ -1,10 +1,10 @@
 <template>
   <center>
     <div v-if="store.userData.emailID == null">
-
-    <!--   Not available -->
+      <!--   Not available -->
     </div>
-    <div v-else
+    <div
+      v-else
       class="
         row
         title
@@ -75,27 +75,34 @@
             {{ i["question"] }}
           </p>
           <div v-if="i['correctAnswers'].length > 0">
-            <p style="margin: 10px 20px">{{ i["answers"] }}</p>
+            <div v-for="(crtAnswer, index) in i['correctAnswers']" :key="index">
+              <p style="margin: 10px 20px">{{ crtAnswer["answer"] }}</p>
+            </div>
           </div>
         </div>
         <div class="contain">
           <div v-if="store.userData.emailID != i['doubtperson']">
             <div class="answerdetails">
-              <q-input style="background-color:white ;border: white solid"    standout bottom-slots v-model="answers[index]" label="Your answer"  >
-        <template v-slot:prepend>
-           
-        </template>
-        <template v-slot:append>
-          <q-icon name="send"  @click="submitAnswer(index)" class="cursor-pointer" />
-        </template>
-
-    
-      </q-input>
+              <q-input
+                style="background-color: white; border: white solid"
+                standout
+                bottom-slots
+                v-model="answers[index]"
+                label="Your answer"
+              >
+                <template v-slot:prepend> </template>
+                <template v-slot:append>
+                  <q-icon
+                    name="send"
+                    @click="submitAnswer(index)"
+                    class="cursor-pointer"
+                  />
+                </template>
+              </q-input>
             </div>
-             
           </div>
           <div class="totalans">
-            <br>
+            <br />
             <p
               style="
                 font-weight: 600;
@@ -121,19 +128,25 @@
           <q-card>
             <q-card-section>
               <!-- list -->
-              <q-banner v-for="i in data" :key="i.id" inline-actions rounded class="bg-white text-black">
-                <p>{{i.answers}}</p>
-                <p>{{i.answers}}</p> <!-- person -->
-                <p>{{i.answers}}</p>  <!-- date -->
-
+              <q-banner
+                v-for="(ans, index) in i['answers']"
+                :key="index"
+                inline-actions
+                rounded
+                class="bg-white text-black"
+              >
+                <p>{{ ans["answer"] }}</p>
                 <template v-slot:action>
                   <div v-if="store.userData.emailID == i['doubtperson']">
-                    <q-btn
-                      flat
-                      icon="task_alt"
-                      color="green"
-                      label="Mark as correct"
-                    />
+                    <div v-if="!i['correctAnswers'].includes(ans)">
+                      <q-btn
+                        flat
+                        icon="task_alt"
+                        @click="correctAnswer(index, ans)"
+                        color="green"
+                        label="Mark as correct"
+                      />
+                    </div>
                     <q-seperator />
                   </div>
                 </template>
@@ -145,7 +158,9 @@
     </q-card>
   </div>
   <div v-else>
-    <p  style="color: white; font-weight: 660; margin: 20px; text-align: center">No questions in this Discussions</p>
+    <p style="color: white; font-weight: 660; margin: 20px; text-align: center">
+      No questions in this Discussions
+    </p>
   </div>
 </template>
 
@@ -208,11 +223,28 @@ export default defineComponent({
           data.value = questions.data;
           for (let i = 0; i < data.value.length; i++) {
             answers.value.push("");
+            // for (var ans in data.value[i]["answers"]) {
+            //   console.log(
+            //     data.value[i]["correctAnswers"].includes(
+            //       data.value[i]["answers"][ans]
+            //     )
+            //   );
+            // }
           }
-          console.log("answers = ", answers.value);
         } else {
           console.log("error in retrieving data");
         }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    const correctAnswer = async (index, answer) => {
+      try {
+        const res = await api.correctAnswer({
+          id: data.value[index]._id,
+          data: [answer, ...data.value[index].correctAnswers],
+        });
       } catch (e) {
         console.log(e);
       }
@@ -225,6 +257,7 @@ export default defineComponent({
       store,
       submitAnswer,
       answers,
+      correctAnswer,
       question,
       form,
       title,
