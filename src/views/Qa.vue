@@ -136,6 +136,7 @@
                 class="bg-white text-black"
               >
                 <p>{{ ans["answer"] }}</p>
+                <q-separator />
                 <template v-slot:action>
                   <div v-if="store.userData.emailID == i['doubtperson']">
                     <div v-if="!i['correctAnswers'].includes(ans)">
