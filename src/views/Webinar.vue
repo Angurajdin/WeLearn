@@ -53,22 +53,66 @@
             />
 
             <div class="text-subtitle2">Date</div>
-            <q-input
-              dense
-              type="date"
-              v-model="date"
-              autofocus
-              @keyup.enter="form = false"
-            />
 
-            <div class="text-subtitle2">Time</div>
-            <q-input
-              dense
-              v-model="time"
-              type="time"
-              autofocus
-              @keyup.enter="form = false"
-            />
+            <div class="q-pa-md">
+              <div class="q-mb-sm">
+                <q-badge color="teal"> Model: {{ date }} </q-badge>
+              </div>
+
+              <q-btn icon="event" round color="primary">
+                <q-popup-proxy
+                  @before-show="updateProxy"
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date v-model="date" today-btn :options="minDate">
+                    <div class="row items-center justify-end q-gutter-sm">
+                      <q-btn
+                        label="Cancel"
+                        color="primary"
+                        flat
+                        v-close-popup
+                      />
+                      <q-btn
+                        label="OK"
+                        color="primary"
+                        flat
+                        @click="save"
+                        v-close-popup
+                      />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-btn>
+            </div>
+
+            <div class="q-pa-md">
+              <div class="q-mb-sm">
+                <q-badge color="teal"> Model: {{ time }} </q-badge>
+              </div>
+
+              <q-btn icon="access_time" round color="primary">
+                <q-popup-proxy
+                  @before-show="updateProxy"
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-time :options="minTime" v-model="time">
+                    <div class="row items-center justify-end q-gutter-sm">
+                      <q-btn
+                        label="Cancel"
+                        color="primary"
+                        flat
+                        v-close-popup
+                      />
+                      <q-btn label="OK" color="primary" flat v-close-popup />
+                    </div>
+                  </q-time>
+                </q-popup-proxy>
+              </q-btn>
+            </div>
 
             <div class="text-subtitle2">Link</div>
             <q-input
@@ -193,6 +237,30 @@ export default defineComponent({
     const router = useRoute();
     let showlink = ref(false);
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+    var minutes = today.getMinutes();
+    var hour = today.getHours();
+
+    today = yyyy + "/" + mm + "/" + dd;
+
+    const minDate = (date) => {
+      return date >= today.toString();
+    };
+
+    const minTime = (hr, min) => {
+      if (hr < hour) {
+        return false;
+      }
+      if (min !== null && hr == hour && min < minutes) {
+        return false;
+      }
+
+      return true;
+    };
+
     const getMeetings = async () => {
       try {
         const meetings = await api.getMeeting();
@@ -266,7 +334,8 @@ export default defineComponent({
     return {
       /* joinMeeting, nodemailer, transporter, info, */ data,
       copy,
-
+      minDate,
+      minTime,
       onSubmit,
       form,
       title,
